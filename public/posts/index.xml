@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Technology is Fun Because It&#39;s Always Changing</title>
+    <link>http://markvoelker.github.io/blog/posts/</link>
+    <description>Recent content in Posts on Technology is Fun Because It&#39;s Always Changing</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 28 Sep 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://markvoelker.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>DefCore Misconceptions Part 2: Debunking Advisory Status</title>
+      <link>http://markvoelker.github.io/blog/defcore-misconceptions-2</link>
+      <pubDate>Mon, 28 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://markvoelker.github.io/blog/defcore-misconceptions-2</guid>
+      <description>&lt;p&gt;&lt;em&gt;&lt;a href=&#34;https://wiki.openstack.org/wiki/DefCore&#34;&gt;DefCore&lt;/a&gt; isn&amp;rsquo;t a new
+creature in the OpenStack community: it&amp;rsquo;s been in
+discussion since at least 2013.  However it was only earlier in 2015
+that adherence to DefCore Guidelines became a requirement for products
+that want to use the OpenStack name and OpenStack Powered logo.  As a
+result, a lot more people are now interested in DefCore than in the
+past.  As we&amp;rsquo;ve started receiving a lot more feedback about DefCore,
+it&amp;rsquo;s become apparent that there are a few misconceptions out there from
+folks who are new to DefCore.  Personally I held some of those same
+misconceptions when I started participating in DefCore about 9 months
+ago.  This series of posts is intended to lay some of those
+misconceptions to rest and help folks learn more about DefCore is, how
+it works, and what it&amp;rsquo;s trying to accomplish.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;In DefCore parlance, a
+&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/Lexicon.rst#n72&#34;&gt;Guideline&lt;/a&gt;
+is essentially a document that lists what capabilities an &lt;a href=&#34;http://www.openstack.org/interop&#34;&gt;OpenStack
+Powered&amp;trade;&lt;/a&gt; product must expose to end
+users.  For each one of those
+&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/Lexicon.rst#n16&#34;&gt;Capabilities&lt;/a&gt;,
+there is also a list of tests that the product (which could be a public cloud,
+a distribution, an appliance, or a managed offering) must pass in order to
+prove that it supports those Capabilities.  Individual Capabilities can be
+&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/Lexicon.rst#n16&#34;&gt;marked as being in one of four
+states&lt;/a&gt;:
+&lt;em&gt;required&lt;/em&gt;, &lt;em&gt;advisory&lt;/em&gt;, &lt;em&gt;deprecated&lt;/em&gt;, or &lt;em&gt;removed&lt;/em&gt;.
+As soon as you read those four words, a few ideas about the lifecycle of
+Capabilities probably starts to materialize in your head.  Today I&amp;rsquo;ll talk
+about one of those states (we&amp;rsquo;ll save the others for a later post):
+&lt;em&gt;advisory&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;A Capability starts off life when the DefCore Committee considers adding and
+removing Capabilities to it&amp;rsquo;s Guidelines, which happens &lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/2015A.rst#n10&#34;&gt;once every six
+months&lt;/a&gt;
+and is offset by a couple of months from OpenStack software releases.
+This part of the lifecycle is pretty subjective:
+generally speaking, in order to be proposed someone has to think that there&amp;rsquo;s
+a strong enough argument for including a capability to bring it up for
+discussion.  Typically the list of candidates has been created by having
+members of the DefCore Committee chat with PTL&amp;rsquo;s or other members of the
+technical contributor community while also injecting their own opinions, though
+anyone can submit ideas.  You don&amp;rsquo;t have to be sure the candidate is a
+slam-dunk for inclusion, you just need to think it&amp;rsquo;s at least worth talking
+about with a wider audience.&lt;/p&gt;
+
+&lt;p&gt;The next step is that the candidate Capabilities are proposed for scoring.  In
+order to decide what Capabilities make it into Guidelines, the DefCore
+Committee has a set of &lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst&#34;&gt;12
+Criteria&lt;/a&gt;
+that it measures Capabilities against (mostly are &lt;a href=&#34;../defcore-misconceptions-1/&#34;&gt;trailing indicators of
+market acceptance&lt;/a&gt;).  In the early
+days of the Committee, scoring was done via live audio meetings with a Google
+spreadsheet and was, IMHO, a somewhat inexact process (which is fine:
+bootstrapping a new thing is always challenging and your processes should
+naturally improve and mature over time as long as you incorporate feedback and
+lessons learned).  In the current cycle, the DefCore Committee &lt;a href=&#34;https://review.openstack.org/#/c/210076/&#34;&gt;modified it&amp;rsquo;s
+process for scoring&lt;/a&gt; so that scoring
+is now done in Gerrit.  This basically involves filling out a &lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/working_materials/scoring.txt&#34;&gt;simple
+worksheet&lt;/a&gt;
+for the Capabilities you want to propose, and using a &lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/working_materials/tabulate_scores.py&#34;&gt;simple
+script&lt;/a&gt;
+to tally up a total score (it also emits a CSV version if you&amp;rsquo;re more
+accustomed to using a spreadsheets for this sort of thing).  If a Capability
+scores high enough, you can include modifications to the
+still-under-construction &lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/2016.next.json&#34;&gt;next
+Guideline&lt;/a&gt;
+in the same patch.  This allows everyone to see what candidates are being
+proposed, some initial thinking behind how they score to get the conversation
+started, and exactly what tests are being proposed for those candidates.
+You can have a look at &lt;a href=&#34;https://review.openstack.org/213353&#34;&gt;several&lt;/a&gt;
+&lt;a href=&#34;https://review.openstack.org/221631&#34;&gt;proposals&lt;/a&gt;
+&lt;a href=&#34;https://review.openstack.org/213330&#34;&gt;for&lt;/a&gt;
+&lt;a href=&#34;https://review.openstack.org/223915&#34;&gt;new&lt;/a&gt;
+&lt;a href=&#34;https://review.openstack.org/210080&#34;&gt;capabilties&lt;/a&gt; that are currently going
+through this process.&lt;/p&gt;
+
+&lt;p&gt;You may notice that for each Capability added to a Guideline, there&amp;rsquo;s a field
+for
+&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/schema/1.3.rst#n66&#34;&gt;status&lt;/a&gt;.
+Very importantly, when a new Capability is added to a Guideline for the first
+time, it &lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/2015A.rst#n113&#34;&gt;must be listed in &lt;em&gt;advisory&lt;/em&gt; state&lt;/a&gt;
+rather than &lt;em&gt;required&lt;/em&gt; state according to DefCore&amp;rsquo;s Board-approved operating
+rules. So, what exactly does &lt;em&gt;advisory&lt;/em&gt; mean?  Does it mean that the
+Capability in question is going to be required in the future and that vendors
+should get busy adding it to their product offerings if they don&amp;rsquo;t include it
+today?  &lt;em&gt;Not quite.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;There is actually a
+&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/Lexicon.rst#n13&#34;&gt;definition&lt;/a&gt;
+of advisory status included in the DefCore lexicon, and it&amp;rsquo;s fairly simple: it
+means that a Capability has &lt;em&gt;been &lt;strong&gt;suggested&lt;/strong&gt; for the next Guideline&lt;/em&gt;.  Note
+that word: &lt;em&gt;suggested&lt;/em&gt;.  Essentially, the DefCore Committee is saying to
+the world: &amp;ldquo;hey ladies and gents, we&amp;rsquo;re thinking about requiring this
+Capability in the future&amp;ndash;what do you think about that?&amp;rdquo;  In other words:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&amp;ldquo;Advisory&amp;rdquo; status means that the DefCore Committee thinks there&amp;rsquo;s good
+reason for requiring a Capability and would like to solicit feedback from the
+community about whether that&amp;rsquo;s actually the case.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;So, just because a Capability is marked as advisory in one Guideline &lt;strong&gt;does
+not&lt;/strong&gt; mean it will automatically graduate to required status in the next
+Guideline.  In many cases that might actually happen if the scoring was done
+properly and there&amp;rsquo;s not much argument about a given Capability (and in
+such cases the advisory state also serves as a handy heads-up to vendors to
+check whether they&amp;rsquo;re supporting that Capability).  But the
+Committee might also get feedback such that the Capability actually isn&amp;rsquo;t a
+good choice.  That might be for any number of reasons: perhaps the
+Capability is actually &lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst#n61&#34;&gt;specific to a particular backend
+driver&lt;/a&gt;, maybe it&amp;rsquo;s not
+actually as &lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst#n40&#34;&gt;widely
+deployed&lt;/a&gt;
+as was assumed, or perhaps it&amp;rsquo;s not as widely &lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst#n48&#34;&gt;used by
+clients&lt;/a&gt;
+or
+&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst#n79&#34;&gt;tools&lt;/a&gt;
+as was thought, etc etc.&lt;/p&gt;
+
+&lt;p&gt;Getting the scoring right for a given Capability is actually a fairly hard
+and labor-intensive process that involves doing a lot of research, and
+sometimes good information isn&amp;rsquo;t readily available.  The advisory status
+actually serves as means of stepping up the conversation so that more
+information can be gathered and more opinions can be heard, and it provides a
+minimum of six full months for that conversation to happen.  Notice the word
+&lt;em&gt;minimum&lt;/em&gt; there.  If the community is divided, it&amp;rsquo;s entirely possible the
+Capability might stay in advisory status
+while more discussion is had or while other adjustments (to code, to products,
+to tests, to clients, etc) are made.  Alternately, the Capability might simply
+be dropped in the next Guideline after discussion indicates it&amp;rsquo;s really not a
+good candidate.  Or, it may graduate to required status if there aren&amp;rsquo;t good
+grounds for dropping it or prolonging the advisory period.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s worth mentioning that one clue that advisory Capabilities don&amp;rsquo;t always
+become required is that the two status have different bars to meet when
+scoring a Capability.  The DefCore Committee &lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/2015A.rst#n109&#34;&gt;picks a cut-off
+score&lt;/a&gt;
+that Capabilities must meet in order to become required.  That score can
+change from cycle to cycle as weights to Criteria are also adjusted, but
+in the past the cut-off score has hovered around 74.  Though not strictly
+required to do so, the DefCore Committee has also generally applied a minimum
+score for advisory Capabilities: if a candidate can&amp;rsquo;t muster at least 50
+points, there&amp;rsquo;s probably not much point in having a larger discussion about it.&lt;/p&gt;
+
+&lt;p&gt;I should also note that there are all kinds of &amp;ldquo;pressure relief valves&amp;rdquo; built
+into the DefCore process, of which the six-month advisory period is just one.
+For example, if you read the &lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/2015A.rst#n10&#34;&gt;timeline
+section&lt;/a&gt;
+of DefCore&amp;rsquo;s operating procedures that I mentioned earlier, you&amp;rsquo;ll notice that
+Capabilities are generally selected for advisory status by the time a Summit
+rolls around (with an implicit assumption that Summits are a good opportunity
+to talk about what&amp;rsquo;s being proposed so everyone is aware of it), but the
+proposal doesn&amp;rsquo;t go to the Board of Directors for a full three months
+afterward.  That means there&amp;rsquo;s actually several months even before a
+Capability becomes required during which it&amp;rsquo;s merits can be discussed (not to
+mention the discussion that happens when the initial scoring patch is
+submitted).  And once a Capability does become required, it can be
+&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/Lexicon.rst#n68&#34;&gt;flagged&lt;/a&gt;
+if there&amp;rsquo;s &lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/HACKING.rst#n85&#34;&gt;sufficient
+reason&lt;/a&gt;
+to think it shouldn&amp;rsquo;t be required.&lt;/p&gt;
+
+&lt;p&gt;So there you have it: advisory status doesn&amp;rsquo;t mean that a Capability will
+necessarily be required in the future, just that there is a &lt;em&gt;chance&lt;/em&gt; it will
+be subject to discussion by all segments of the community.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Questions?  Comments?  Drop by #openstack-defcore on IRC or drop the
+DefCore Committee a line at
+&lt;a href=&#34;mailto:defcore-committee@lists.openstack.org&#34;&gt;defcore-committee@lists.openstack.org&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>DefCore Misconceptions Part 1: Leading vs Trailing Indicators</title>
+      <link>http://markvoelker.github.io/blog/defcore-misconceptions-1</link>
+      <pubDate>Fri, 25 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://markvoelker.github.io/blog/defcore-misconceptions-1</guid>
+      <description>&lt;p&gt;&lt;em&gt;&lt;a href=&#34;https://wiki.openstack.org/wiki/DefCore&#34;&gt;DefCore&lt;/a&gt; isn&amp;rsquo;t a new
+creature in the OpenStack community: it&amp;rsquo;s been in
+discussion since at least 2013.  However it was only earlier in 2015
+that adherence to DefCore Guidelines became a requirement for products
+that want to use the OpenStack name and OpenStack Powered logo.  As a
+result, a lot more people are now interested in DefCore than in the
+past.  As we&amp;rsquo;ve started receiving a lot more feedback about DefCore,
+it&amp;rsquo;s become apparent that there are a few misconceptions out there from
+folks who are new to DefCore.  Personally I held some of those same
+misconceptions when I started participating in DefCore about 9 months
+ago.  This series of posts is intended to lay some of those
+misconceptions to rest and help folks learn more about DefCore is, how
+it works, and what it&amp;rsquo;s trying to accomplish.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;One item of feedback we&amp;rsquo;ve received a couple of times now is that some
+folks expect the DefCore Committee to be a visionary body that sets
+forward-looking standards that others will be expected to adhere to.  In
+essence: DefCore defines what makes a cloud interoperable, and then
+everyone else gets to work implementing those capabilities in their
+products.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;This actually isn&amp;rsquo;t the case (today).&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Well, more accurately: it&amp;rsquo;s only partly true.  DefCore does set standards
+that vendors have to adhere to if they want to use the OpenStack
+trademark or logo&amp;hellip;but most of how those standards are defined is by
+looking at what the market has already accepted.&lt;/p&gt;
+
+&lt;p&gt;The criteria that the Board of Directors has approved for DefCore to use
+in establishing interoperability standards today are strongly weighted
+toward requiring capabilities that have &lt;em&gt;already&lt;/em&gt; gained wide
+adoption&amp;ndash;not what we’d like the world start adopting.  In essence,
+DefCore&amp;rsquo;s Guidelines are &lt;em&gt;trailing indicators&lt;/em&gt; of the acceptance of a
+feature.  The evidence of this lies in the 12 Criteria that DefCore uses
+to decide which Capabilities become required in it&amp;rsquo;s Guidelines.
+Currently, all 12 Criteria are weighted roughly equally.  If we examine
+them to see whether they&amp;rsquo;re more of a leading indicator or a trailing
+indicator, we find:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst#n40&#34;&gt;Widely Deployed&lt;/a&gt;: &lt;strong&gt;trailing&lt;/strong&gt;.  No points are awarded for this
+Criteria unless products are already supporting the Capability in
+question.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst#n44&#34;&gt;Used by Tools&lt;/a&gt;: &lt;strong&gt;trailing&lt;/strong&gt;.  Tools are mostly unlikely adopt a new
+feature/API the minute it’s released.  Rather, they tend to lag and
+add support for it when the tool&amp;rsquo;s users demand for it is sufficient.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst#n48&#34;&gt;Used by Clients&lt;/a&gt;: &lt;strong&gt;trailing&lt;/strong&gt;.  See Used by Tools.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst#n54&#34;&gt;Future Direction&lt;/a&gt;: &lt;strong&gt;leading&lt;/strong&gt;.  If the project (for example, Nova) or
+the TC says a Capability is going away in the future, no points are
+awarded even if the Capability isn&amp;rsquo;t gone yet.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst#n61&#34;&gt;Complete&lt;/a&gt;: &lt;strong&gt;trailing&lt;/strong&gt; (sort of).  If the capability is plugin dependent,
+all plugins have to support it.  That doesn&amp;rsquo;t always happen immediately
+when a feature is released (unless the project requires it) so we&amp;rsquo;ll
+call that a trailing indicator.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst#n58&#34;&gt;Stable&lt;/a&gt;: &lt;strong&gt;trailing&lt;/strong&gt;.  The capability has to have been present in 3 or
+more OpenStack releases, which means the capability has to have been
+released for 18 months before it gets points here.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst#n84&#34;&gt;Foundational&lt;/a&gt;: &lt;strong&gt;trailing&lt;/strong&gt;.  Other capabilities are unlikely to
+be dependent on a very new thing.  In fact there are numerous examples
+of the opposite: for instance, until around the Juno timeframe
+neutronclient (on which any Neutron capabilities that require
+authentication would depend) supported only the Keystone v2 API.  The
+Keystone v3 API was introduced as far back as Grizzly.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst#n87&#34;&gt;Atomic&lt;/a&gt;: &lt;strong&gt;neither&lt;/strong&gt;.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst#n90&#34;&gt;Proximity&lt;/a&gt;: &lt;strong&gt;neither&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst#n70&#34;&gt;Discoverable&lt;/a&gt;: &lt;strong&gt;neither&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst#n73&#34;&gt;Documented&lt;/a&gt;: &lt;strong&gt;neither&lt;/strong&gt; (or maybe in some instances trailing).  In
+most cases major new capabilities get documented when released (the
+community has generally gotten a lot better about this over the years
+IMHO).  There are still some cases where a capability isn&amp;rsquo;t well
+documented up front though, and does get documented at some later
+point.  In that sense you might call this a trailing indicator.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst#n77&#34;&gt;DefCore in Last Release&lt;/a&gt;: &lt;strong&gt;trailing&lt;/strong&gt;.  A capability only scores
+points here if it was required six months ago in the last DefCore
+Guideline as well (which also means the Capability was likely present in at
+least three OpenStack releases per the &amp;ldquo;Stable&amp;rdquo; criteria, so in
+essence the Capability is at least two years old if it gets points
+here).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;So of the 12 criteria, 7 are looking at trailing indicators of adoption,
+4 aren&amp;rsquo;t really either, and 1 is a leading indicator.  It&amp;rsquo;s
+also maybe worth pointing out that using current levels of real-world
+interoperability as the starting point has been &lt;a href=&#34;https://blogs.gnome.org/markmc/2013/10/30/openstack-core-and-interoperability/&#34;&gt;discussed by longtime
+Board members since at least 2013&lt;/a&gt;,
+so the idea that DefCore is weighted toward trailing indicators of
+adoption isn&amp;rsquo;t new.  That said, adherence to DefCore’s Guidelines only
+became a requirement to get a trademark/logo license agreement from the
+OpenStack Foundation in the past 6 months or so, so we probably now have
+a lot more people now paying attention and interested in providing feedback.&lt;/p&gt;
+
+&lt;p&gt;Some of those discussions have indicated that at least part of the
+community feels that the current criteria are perhaps &lt;em&gt;too&lt;/em&gt; heavily
+weighted toward trailing indicators.  Personally, I tend to agree.  To
+that end, &lt;a href=&#34;https://review.openstack.org/226978&#34;&gt;some&lt;/a&gt;
+&lt;a href=&#34;https://review.openstack.org/226980&#34;&gt;discussions&lt;/a&gt; have already begun
+about proposing changes to the Board of Directors concerning weighting of
+criteria.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Questions?  Comments?  Drop by #openstack-defcore on IRC or drop the
+DefCore Committee a line at
+&lt;a href=&#34;mailto:defcore-committee@lists.openstack.org&#34;&gt;defcore-committee@lists.openstack.org&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
