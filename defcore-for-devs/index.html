@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <title>
+    DefCore: What OpenStack Devs Need to Know // Technology is Fun Because It&#39;s Always Changing
+  </title>
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+<meta name="description" content="A quick guide for to DefCore for PTL&#39;s and other developers.">
+<meta name="keywords" content="">
+<meta name="author" content="markvoelker">
+<meta name="generator" content="Hugo 0.15" />
+
+  <meta property="og:title" content="DefCore: What OpenStack Devs Need to Know" />
+<meta property="og:description" content="A quick guide for to DefCore for PTL&#39;s and other developers." />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="http://markvoelker.github.io/blog/defcore-for-devs" />
+
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/base-min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
+  
+  
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/grids-responsive-min.css">
+  
+  
+
+  <link rel="stylesheet" href="http://markvoelker.github.io/blog/css/redlounge.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,200,100,700,300,500,600,800' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://markvoelker.github.io/blog/touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="http://markvoelker.github.io/blog/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Technology is Fun Because It&#39;s Always Changing" />
+
+    
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/tomorrow-night-bright.min.css">
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+
+  
+
+  
+
+  
+</head>
+
+<body>
+	
+
+	<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+  <div class="header">
+    
+
+	
+
+    <h1 class="brand-title">Future Relics</h1>
+    <h2 class="brand-tagline">Everything we work on goes obsolete someday--and that&#39;s what makes it so much fun.</h2>
+
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item"><span class="nav-item-separator">//</span><a href="http://markvoelker.github.io/blog">Home</a></li>
+        
+          <li class="nav-item"><span class="nav-item-separator">//</span><a href="http://markvoelker.github.io/blog/index.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+
+    
+    <div class="social-buttons">
+      
+        
+        <a href="http://www.twitter.com/marktvoelker" target="_blank"><i class='fa fa-twitter'></i></a>
+        
+      
+        
+        <a href="http://www.linkedin.com/in/markvoelker" target="_blank"><i class='fa fa-linkedin'></i></a>
+        
+      
+      
+    </div>
+    
+
+  </div>
+</div>
+
+	
+	
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+		<a name="top"></a>
+		
+
+		
+			
+		    <div id="toc" class="pure-u-1 pure-u-md-1-4">
+				<small class="toc-label">Contents</small>
+		   	 	<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#three-terms-you-should-know:d2a2793e5f378a8f8eb84dd2a2fe11a9"><strong>Three terms you should know.</strong></a></li>
+<li><a href="#any-capability-defcore-considers-must-have-tests:d2a2793e5f378a8f8eb84dd2a2fe11a9"><strong>Any Capability DefCore considers <em>must</em> have tests.</strong></a></li>
+<li><a href="#capabilities-and-their-tests-should-not-require-admin-credentials:d2a2793e5f378a8f8eb84dd2a2fe11a9"><strong>Capabilities and their tests should not require admin credentials.</strong></a></li>
+<li><a href="#adoption-is-key:d2a2793e5f378a8f8eb84dd2a2fe11a9"><strong>Adoption is key.</strong></a></li>
+<li><a href="#more-than-one-way-of-doing-things-may-be-ok-sort-of:d2a2793e5f378a8f8eb84dd2a2fe11a9"><strong>More than one way of doing things <em>may</em> be ok&hellip;sort of.</strong></a></li>
+<li><a href="#keep-in-mind-there-s-a-long-tail:d2a2793e5f378a8f8eb84dd2a2fe11a9"><strong>Keep in mind there&rsquo;s a long tail.</strong></a></li>
+<li><a href="#there-are-some-useful-documents-in-the-defcore-git-repo:d2a2793e5f378a8f8eb84dd2a2fe11a9"><strong>There are some useful documents in the DefCore Git repo.</strong></a></li>
+</ul></li>
+</ul>
+</nav>
+		    </div>
+		    
+	    
+  		<section class="post">
+            <h1 class="post-title">
+              <a href="http://markvoelker.github.io/blog/defcore-for-devs">DefCore: What OpenStack Devs Need to Know</a>
+            </h1>
+            <h3 class="post-subtitle">
+            	
+            </h3>
+            
+            	<span class="post-date">
+                	<span class="post-date-day"><sup>6</sup></span><span class="post-date-separator">/</span><span class="post-date-month">Apr</span> <span class="post-date-year">2016</span>
+            	</span>
+            	
+            
+            	
+            		<span class="post-author-single">By <a class="post-author"  target="">markvoelker</a></span>
+            		
+
+
+
+
+            	
+            
+
+			
+			
+				<div class="post-categories">
+				
+					<a class="post-category post-category-defcore" href="http://markvoelker.github.io/blog/categories/defcore">DefCore</a>
+				
+					<a class="post-category post-category-openstack" href="http://markvoelker.github.io/blog/categories/openstack">OpenStack</a>
+				
+				</div>
+			
+
+			
+		    	<div class="social-sharing">
+	<a class="share-button-facebook" onClick="return popupShare(this.href);" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fmarkvoelker.github.io%2fblog%2fdefcore-for-devs" target="_blank"><i class="fa fa-facebook"><span>Like</span></i></a>
+	<a class="share-button-google-plus" onClick="return popupShare(this.href);" href="https://plus.google.com/share?url=http%3a%2f%2fmarkvoelker.github.io%2fblog%2fdefcore-for-devs" target="_blank"><i class="fa fa-google-plus"><span>Google +1</span></i></a>
+	<a class="share-button-linkedin" onClick="return popupShare(this.href);" href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fmarkvoelker.github.io%2fblog%2fdefcore-for-devs&title=DefCore%3a%20What%20OpenStack%20Devs%20Need%20to%20Know&summary=As%20DefCore%20has%20become%20more%20established%20over%20the%20past%20year%20or%20so%2c%20I%26rsquo%3bve%20started%20getting%20more%20questions%20from%20project%20developers%20and%20PTL%26rsquo%3bs.%20In%20most%20cases%2c%20they%26rsquo%3bre%20interested%20to%20know%20whether%20things%20they%26rsquo%3bre%20thinking%20about%20doing%20in%20their%20projects%20are%20%26ldquo%3bok%20from%20a%20DefCore%20perspective%26rdquo%3b%20or%20would%20be%20%26ldquo%3bok%20from%20an%20interoperability%20perspective%26rdquo%3b.%20In%20some%20cases%20they%26rsquo%3bre%20basically%20just%20giving%20a%20quick%20%28and%20appreciated%21%29%20heads-up%20and%20sometimes%20they%26rsquo%3bre%20generating%20terrific%20discussions.%20So%20before%20we%20go%20on%2c%20let%26rsquo%3bs%20take%20a%20quick%20timeout%20to%20give%20a%20some%20kudos%20to%20developers%20and%20PTL%26rsquo%3bs%20that%20are%20now%20more%20than%20ever%20thinking%20about%20interoperability%20early%20on%20when%20making%20technical%20decisions%26ndash%3bthat%20is%20fantastic.}&source=Technology%20is%20Fun%20Because%20It%27s%20Always%20Changing" target="_blank"><i class="fa fa-linkedin"><span>Share on LinkedIn</span></i></a>
+	<a class="share-button-twitter" onClick="return popupShare(this.href);" href="http://twitter.com/share?text=DefCore%3a%20What%20OpenStack%20Devs%20Need%20to%20Know&url=http%3a%2f%2fmarkvoelker.github.io%2fblog%2fdefcore-for-devs" target="_blank"><i class="fa fa-twitter"><span>Tweet</span></i></a>	
+</div>
+		    
+
+			
+
+            
+
+<p>As DefCore has become more established over the past year or so, I&rsquo;ve
+started getting more questions from project developers and PTL&rsquo;s.  In most
+cases, they&rsquo;re interested to know whether things they&rsquo;re thinking about
+doing in their projects are &ldquo;ok from a DefCore perspective&rdquo; or
+would be &ldquo;ok from an interoperability perspective&rdquo;.  In some cases they&rsquo;re
+basically just giving a quick (and appreciated!) heads-up and sometimes
+they&rsquo;re generating terrific discussions.</p>
+
+<p>So before we go on, let&rsquo;s take a quick timeout to give a some kudos to
+developers and PTL&rsquo;s that are now more than ever thinking about
+interoperability early on when making technical decisions&ndash;<strong>that
+is <em>fantastic</em>.</strong></p>
+
+<p>In the interest of making DefCore more approachable, I thought
+I&rsquo;d try to write up some of the general themes that people are asking
+about and that OpenStack devs seem to want to know about.
+So, what does an OpenStack developer or PTL
+need to know about DefCore with respect to things you want to do in your
+project?</p>
+
+<h2 id="three-terms-you-should-know:d2a2793e5f378a8f8eb84dd2a2fe11a9"><strong>Three terms you should know.</strong></h2>
+
+<p>Consult the <a href="https://github.com/openstack/defcore/blob/master/doc/source/process/Lexicon.rst">Lexicon</a>
+for more lingo, but here a couple of key terms you should definitely know:</p>
+
+<ul>
+<li><a href="http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/Lexicon.rst#n16">Capability</a>:
+Generally, a feature or thing you can do with the software, usually exposed
+as an API.  For example, listing volumes in Cinder or starting an instance
+in Nova.  Capabilities are defined by tests (more on that later).</li>
+<li><a href="http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst">Criteria</a>:
+One of the factors DefCore considers when determining whether
+a given Capability should be required for OpenStack Powered&trade; products.
+There are twelve in all which you can find information about
+<a href="https://github.com/openstack/defcore/blob/master/doc/source/process/CoreCriteria.rst">here</a>.</li>
+<li>Guideline: A document published by DefCore and approved by the Board of
+Directors every six months which details the Capabilities that OpenStack
+Powered&trade; products must expose to end users and the sections of
+upstream code they must use to do so.  I&rsquo;ve heard these referred to as
+&ldquo;the DefCore standards&rdquo; occasionally.  You can find the two most recently
+Board-approved Guidelines as of this writing
+<a href="http://git.openstack.org/cgit/openstack/defcore/tree/2015.07.json">here</a>
+and <a href="http://git.openstack.org/cgit/openstack/defcore/tree/2016.01.json">here</a>.</li>
+</ul>
+
+<h2 id="any-capability-defcore-considers-must-have-tests:d2a2793e5f378a8f8eb84dd2a2fe11a9"><strong>Any Capability DefCore considers <em>must</em> have tests.</strong></h2>
+
+<p>When DefCore considers adding new Capabilities to a Guideline, there must
+be some way for clouds to prove that the expose those Capabilities and do
+so in an interoperable way.  The teams of developers in the OpenStack
+community who are hacking on the code are in the best position to define
+what a given feature does and how it should work, so DefCore uses tests
+that are under the governance of the TC.  Today, those tests are mostly
+the ones that live in Tempest, but we&rsquo;re also now able to use tests that live
+in the individual project trees as long as they&rsquo;re runnable via the
+<a href="http://docs.openstack.org/developer/tempest/plugin.html">Tempest plugin interface</a> (by the recent request projects that have additional tests in-tree).</p>
+
+<p><strong><em>Key takeaway: how DefCore defines a working Capability is dependant on
+how you define it in your tests (which must be in Tempest or runnable
+via the Tempest plugin interface).</em></strong></p>
+
+<h2 id="capabilities-and-their-tests-should-not-require-admin-credentials:d2a2793e5f378a8f8eb84dd2a2fe11a9"><strong>Capabilities and their tests should not require admin credentials.</strong></h2>
+
+<p>If I&rsquo;m using one of the
+<a href="http://www.openstack.org/marketplace/public-clouds/">many fine public clouds</a>
+that are built on OpenStack, I&rsquo;m not going to have admin privileges
+(many users of private clouds won&rsquo;t either).
+Therefore, things that are generally only exposed to admins aren&rsquo;t going
+to appear in DefCore Guidelines: they can&rsquo;t be interoperable if end users
+can&rsquo;t actually use them.  In many cases, what is exposed to admins
+vs ordinary users is controlled by policy (e.g. the
+<a href="http://git.openstack.org/cgit/openstack/nova/tree/etc/nova/policy.json">policy.json file</a>
+that ships with most projects).
+In many products. the default settings that ship from upstream, are used
+by default, so that often becomes a good indicator: if it&rsquo;s admin-only
+on git.openstack.org (such as the <a href="http://git.openstack.org/cgit/openstack/neutron/tree/etc/policy.json#n52">ability to create provider networks
+in Neutron</a>
+it&rsquo;s probably not going to be exposed to end users in most clouds and
+will therefore probably not appear in DefCore Guidelines.</p>
+
+<p>The focus on end-user-accessible capabilities has an
+important implication for tests.  If your tests (in Tempest or in-tree)
+use admin credentials for features that are generally exposed to end users,
+<em>we can&rsquo;t include those tests in DefCore Guidelines</em>.  If all tests for
+a Capability use admin credentials, the Capability effectively has no tests
+we can use, and therefore the whole Capability won&rsquo;t make it into a Guideline.</p>
+
+<p>If users can&rsquo;t run the tests to verify that clouds support the Capabilities
+in question, having them in the Guideline becomes fairly toothless.  It is
+therefore very important that Capabilities you want to see included in
+Guidelines both be exposed to end users by default and have tests that don&rsquo;t
+require admin credentials.</p>
+
+<p><strong><em>Key takeaway: DefCore considers only things that are exposed to end users.
+Write your tests and policy files accordingly.</em></strong></p>
+
+<h2 id="adoption-is-key:d2a2793e5f378a8f8eb84dd2a2fe11a9"><strong>Adoption is key.</strong></h2>
+
+<p>I&rsquo;ve <a href="../defcore-misconceptions-1/">previously written</a>
+about how DefCore is a trailing indicator of market acceptance.  Basically
+it boils down to this: if few users using a given Capability and few products
+are supporting it, it&rsquo;s very unlikely to appear in DefCore&rsquo;s
+Guidelines.  Market acceptance in practice often ends up affecting or
+reflecting a number of the
+<a href="https://github.com/openstack/defcore/blob/master/doc/source/process/CoreCriteria.rst">DefCore Criteria</a>.
+For instance:</p>
+
+<ul>
+<li>Widely Deployed: Well, this one&rsquo;s sort of obvious.</li>
+<li>Used by Tools: If a feature or API isn&rsquo;t supported by many clouds,
+it&rsquo;s less likely that external SDK&rsquo;s (jClouds, Fog, etc) and tools
+are going to add support for it since there&rsquo;s probably less demand
+for doing so.</li>
+<li>Used by Clients: if a feature isn&rsquo;t supported by OpenStack&rsquo;s own
+clients (OpenStackClient, the various python clients, perhaps Horizon) then
+that&rsquo;s probably a sign that the feature isn&rsquo;t fully matured yet and/or
+fewer people are using it (since there&rsquo;s no client support).</li>
+<li>Documented: End users tend to have a harder time using a given feature if
+it is poorly documented (or not documented at all).<br /></li>
+<li>Etc, etc, etc (you get the picture)</li>
+</ul>
+
+<p><strong><em>Key takeaway: if you want to something end up as a required Capability
+in the DefCore Guidelines, the best thing you can do is convince the
+broader ecosystem to adopt it first.</em></strong></p>
+
+<p>Note that you don&rsquo;t have to just write a feature and hope people like it.
+Projects like libcloud or jClouds would probably be happy to review patches
+you submit that add support for a new API.  The docs team would probably be
+happy to review patches to the docs describing how to use your new feature.
+<a href="http://planet.openstack.org/">Planet OpenStack</a> would probably be happy to
+aggregate your blog post about how great it is and why people should use it.</p>
+
+<h2 id="more-than-one-way-of-doing-things-may-be-ok-sort-of:d2a2793e5f378a8f8eb84dd2a2fe11a9"><strong>More than one way of doing things <em>may</em> be ok&hellip;sort of.</strong></h2>
+
+<p>Some folks have been surprised to learn that there&rsquo;s actually no rule
+barring DefCore Guidelines from including multiple ways to do something.
+There are a couple of scenarios in which this happens:</p>
+
+<ol>
+<li><p><strong>API iteration.</strong> Sometimes it&rsquo;s simply a matter of more than one version
+of an API beingavailable: for example, in the Liberty release one
+could generate a token by talking to the Keystone v2 API (which was
+designated as SUPPORTED) or the Keystone v3 API (which was marked CURRENT).
+Two API&rsquo;s usually have separate tests, and all versions of the API might
+not be available in all the releases covered by a single Guideline.
+DefCore considers them separate Capabilities.  Clearly, this can be a
+bit of a conundrum: projects may want long support periods for older
+API&rsquo;s because they want to give end users ample time to migrate, or simply
+don&rsquo;t ever want to break users.  API microversioning has become a
+popular way of helping ease introduction of new API&rsquo;s in recent years.</p></li>
+
+<li><p><strong>Same output, very different mechanics.</strong>  In some cases, there are
+Capabilities in which the end result is the same but the mechanics
+and use cases are very, very different.  For example: I can create
+an image by snapshotting a running compute instance.  At the end of
+that operation, what I end up with is a bootable image.  I could also create
+a bootable image by uploading an image file to Glance.  The use cases here
+are obviously quite different though: in one case I&rsquo;m creating an image from
+an instance I already have running in the cloud, and in the other I&rsquo;m
+uploading one from outside the cloud.  So it&rsquo;s quite reasonable to think that
+end users might want to have both Capabilities exposed to them.
+Additionally, here again we have separate API&rsquo;s with separate tests.
+This scenario generally isn&rsquo;t as much of a problem as long as it&rsquo;s well
+understood and well documented.</p></li>
+
+<li><p><strong>Really pretty much the same.</strong>  In a few cases, there really is
+more than one way to do a thing without substantial differences in
+the use cases.  For example, I can list images available to me via the
+Glance API or via the Nova image API (which is basically a proxy to
+Glance v1).  Both give me a listing of images, and assuming both are
+available I could probably use either one for most use cases.</p></li>
+
+<li><p><strong>Some mixture of 1-3.</strong>  Occasionally we run into cases where there&rsquo;s
+some combination of the above scenarios in play.  For example, there are
+plenty of clouds where two versions of the Glance API and the Nova image API
+are all exposed to users, so there are at least 3 ways to list images.</p></li>
+</ol>
+
+<p>It&rsquo;s important to note that when there&rsquo;s more than one way to do something
+it&rsquo;s sometimes harder for any of them to make their way into DefCore Guidelines.
+That boils down to adoption and inertia: if there are several ways to do
+the same thing then different SDK&rsquo;s, tools, and end users often pick different
+ways of doing things, and no one (or more) way becomes clearly well adopted.
+Once SDK&rsquo;s, tools, and end users have settled on a method of doing something,
+there&rsquo;s a real cost to them to change to something else (and if it isn&rsquo;t broken,
+why change?).  Therefore they tend to stick with the option they&rsquo;ve
+chosen unless they&rsquo;re given a really good reason to switch (like, for example,
+a given API being officially deprecated).</p>
+
+<p>In some cases we may find that more than one method of doing something
+does actually become very well adopted, supported by tools and clients, etc
+and therefore score high enough to be included in a Guideline.  But in
+practice, it&rsquo;s often a tougher hill to climb.</p>
+
+<p><strong><em>Key takeaway: be careful when introducing multiple ways to do things.</em></strong>
+It&rsquo;s not strictly disallowed, but creating fragmentation
+might make it harder for capabilities to become well adopted and therefore
+become interoperable.</p>
+
+<p>As an aside, there are a few things projects can do to help nudge acceptance
+of one method or another when there are multiple ways to do something:</p>
+
+<ul>
+<li>If your project really doesn&rsquo;t intend to maintain an older API any more,
+it may be useful to start the <a href="https://governance.openstack.org/reference/tags/assert_follows-standard-deprecation.html">deprecation process</a>
+sooner rather than later as a clear signal to users, SDK&rsquo;s, and tools
+that it&rsquo;s time to move (this also signals DefCore that the old API
+shouldn&rsquo;t score points for the Future Direction criteria, too).</li>
+<li>If you have a feature that you think is primarily oriented at internal
+use (e.g. one OpenStack service talking to another) and shouldn&rsquo;t be
+exposed to end users, you should clearly document it as such (and, if
+it makes sense to do so, restrict it&rsquo;s use via default settings in the
+policy files).</li>
+</ul>
+
+<h2 id="keep-in-mind-there-s-a-long-tail:d2a2793e5f378a8f8eb84dd2a2fe11a9"><strong>Keep in mind there&rsquo;s a long tail.</strong></h2>
+
+<p>DefCore Guidelines cover three OpenStack releases.  For example, the most
+recently Board-approved DefCore Guideline <a href="http://git.openstack.org/cgit/openstack/defcore/tree/2016.01.json#n9">covers Juno, Kilo, and Liberty</a>.
+The previous Guideline covered <a href="http://git.openstack.org/cgit/openstack/defcore/tree/2015.07.json#n9">Icehouse, Juno, and Kilo</a>.
+When a product asks for an <a href="http://www.openstack.org/brand/interop/">OpenStack Powered&trade;</a>
+logo and license agreement from the OpenStack Foundation, they can choose
+to do so under either of the two most recently Board-approved Guidelines.
+Which Guideline the product used is noted in the
+<a href="http://www.openstack.org/marketplace">MarketPlace</a>.</p>
+
+<p>Because a Guideline applies to three releases, a given Capability
+must have been supported in at least all three of those upstream
+releases.  If you introduce a new feature today, it&rsquo;s going to
+take some time before it&rsquo;s realistically possible to get it into the
+DefCore Guidelines.  And bear in mind that it&rsquo;s not just time: once the
+Capability has been around for a while, it still
+needs to meet all the other <a href="https://github.com/openstack/defcore/blob/master/doc/source/process/CoreCriteria.rst">DefCore Criteria</a>
+before it makes it&rsquo;s way into the Guidelines.</p>
+
+<p><strong><em>Key takeaway: be patient and promote adoption.</em></strong> The Criteria we&rsquo;re using
+<a href="https://github.com/openstack/defcore/blob/master/doc/source/process/CoreCriteria.rst">are documented</a>,
+so if you&rsquo;re motivated to help a given capability achieve those criteria
+(maybe by contributing support for it to popular tools/SDK&rsquo;s, or by
+beefing up documentation, or by generally evalgelizing a feature or API),
+go for it!</p>
+
+<h2 id="there-are-some-useful-documents-in-the-defcore-git-repo:d2a2793e5f378a8f8eb84dd2a2fe11a9"><strong>There are some useful documents in the DefCore Git repo.</strong></h2>
+
+<p>Much of the documentation about how and when DefCore does things and
+how it makes it&rsquo;s decisions is actually documented.  You&rsquo;re always free
+to come ask questions (see below), but if you&rsquo;re the sort that would
+like a little bedtime reading, you might start with things like:</p>
+
+<ul>
+<li><a href="https://github.com/openstack/defcore/blob/master/doc/source/process/2015B.rst">The current process doc</a>
+which explains timelines, key actors, etc.</li>
+<li><a href="https://github.com/openstack/defcore/blob/master/doc/source/process/CoreCriteria.rst">The Criteria doc</a>
+which explains factors that DefCore looks at when determining whether to
+include a Capability in it&rsquo;s Guideline documents.</li>
+<li><a href="http://www.openstack.org/brand/interop/">The Foundation&rsquo;s Interop page</a>
+which has information about the OpenStack Powered&trade; program and what&rsquo;s
+included in it today.  Among other things, you&rsquo;ll find links to the two
+most recent Board-approved Guidelines and contact information.</li>
+</ul>
+
+<p>Oh, and if by chance you&rsquo;re a fan of Doctor Who you might also want to
+peruse
+<a href="http://www.slideshare.net/markvoelker/defcore-the-interoperability-standard-for-openstack-53040869">this presentation</a>
+that I did a while back.  It&rsquo;s a little dated now, but you&rsquo;ll at least be
+mildly entertained.</p>
+
+<p><em>Questions?  Comments?  Drop by #openstack-defcore on IRC or drop the
+DefCore Committee a line at
+<a href="mailto:defcore-committee@lists.openstack.org">defcore-committee@lists.openstack.org</a>.</em></p>
+
+	
+			
+		    	<div class="social-sharing">
+	<a class="share-button-facebook" onClick="return popupShare(this.href);" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fmarkvoelker.github.io%2fblog%2fdefcore-for-devs" target="_blank"><i class="fa fa-facebook"><span>Like</span></i></a>
+	<a class="share-button-google-plus" onClick="return popupShare(this.href);" href="https://plus.google.com/share?url=http%3a%2f%2fmarkvoelker.github.io%2fblog%2fdefcore-for-devs" target="_blank"><i class="fa fa-google-plus"><span>Google +1</span></i></a>
+	<a class="share-button-linkedin" onClick="return popupShare(this.href);" href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fmarkvoelker.github.io%2fblog%2fdefcore-for-devs&title=DefCore%3a%20What%20OpenStack%20Devs%20Need%20to%20Know&summary=As%20DefCore%20has%20become%20more%20established%20over%20the%20past%20year%20or%20so%2c%20I%26rsquo%3bve%20started%20getting%20more%20questions%20from%20project%20developers%20and%20PTL%26rsquo%3bs.%20In%20most%20cases%2c%20they%26rsquo%3bre%20interested%20to%20know%20whether%20things%20they%26rsquo%3bre%20thinking%20about%20doing%20in%20their%20projects%20are%20%26ldquo%3bok%20from%20a%20DefCore%20perspective%26rdquo%3b%20or%20would%20be%20%26ldquo%3bok%20from%20an%20interoperability%20perspective%26rdquo%3b.%20In%20some%20cases%20they%26rsquo%3bre%20basically%20just%20giving%20a%20quick%20%28and%20appreciated%21%29%20heads-up%20and%20sometimes%20they%26rsquo%3bre%20generating%20terrific%20discussions.%20So%20before%20we%20go%20on%2c%20let%26rsquo%3bs%20take%20a%20quick%20timeout%20to%20give%20a%20some%20kudos%20to%20developers%20and%20PTL%26rsquo%3bs%20that%20are%20now%20more%20than%20ever%20thinking%20about%20interoperability%20early%20on%20when%20making%20technical%20decisions%26ndash%3bthat%20is%20fantastic.}&source=Technology%20is%20Fun%20Because%20It%27s%20Always%20Changing" target="_blank"><i class="fa fa-linkedin"><span>Share on LinkedIn</span></i></a>
+	<a class="share-button-twitter" onClick="return popupShare(this.href);" href="http://twitter.com/share?text=DefCore%3a%20What%20OpenStack%20Devs%20Need%20to%20Know&url=http%3a%2f%2fmarkvoelker.github.io%2fblog%2fdefcore-for-devs" target="_blank"><i class="fa fa-twitter"><span>Tweet</span></i></a>	
+</div>
+		    
+
+			
+				<div class="tags-list">
+					<span class="dark-red">Tags</span><span class="decorative-marker">//</span>
+					
+	                <a class="post-tag post-tag-defcore" href="http://markvoelker.github.io/blog/tags/defcore">defcore</a>,
+	                
+	                <a class="post-tag post-tag-openstack" href="http://markvoelker.github.io/blog/tags/openstack">openstack</a>,
+	                
+				</div>
+			
+
+			
+				<div class="paging">
+					<span class="paging-label">More Reading</span>
+					
+
+					
+					<div class="paging-older">
+						<span class="dark-red">Older</span><span class="decorative-marker">//</span>
+			            <a class="paging-link" href="http://markvoelker.github.io/blog/defcore-misconceptions-2">DefCore Misconceptions Part 2: Debunking Advisory Status</a>
+		            </div>
+		            
+	            </div>
+            
+          </section>
+          
+          	
+          
+        
+      <div class="footer">
+	<hr class="thin" />
+	<div class="pure-menu pure-menu-horizontal pure-menu-open">
+		<ul class="footer-menu">
+		
+			<li><a href="http://markvoelker.github.io/blog/posts/">Blog</a></li>
+		
+			<li><a href="http://markvoelker.github.io/blog/index.xml">RSS</a></li>
+		
+		</ul>
+	</div>
+
+	<p>&copy; 2016. <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved.</a></p>
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-68171097-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+</div>
+
+    </div>
+  </div>
+	
+
+	
+		<script type="text/javascript">
+			function popupShare(url) {
+				window.open(url, '_blank', 'scrollbars,resizable,height=525,width=600');
+				return false;
+			}
+		</script>
+	
+
+  
+</body>
+</html>
