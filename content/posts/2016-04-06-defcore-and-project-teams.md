@@ -6,7 +6,6 @@ url = "/defcore-cheat-sheet"
 socialsharing = true
 description = "A quick guide for to DefCore for PTL's and other developers."
 categories = ["DefCore","OpenStack"]
-draft = true
 tags = ["defcore","openstack"]
 +++
 
