@@ -5,8 +5,290 @@
     <link>http://markvoelker.github.io/blog/posts/</link>
     <description>Recent content in Posts on Technology is Fun Because It&#39;s Always Changing</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 28 Sep 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 06 Apr 2016 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://markvoelker.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>DefCore: What OpenStack Devs Need to Know</title>
+      <link>http://markvoelker.github.io/blog/defcore-for-devs</link>
+      <pubDate>Wed, 06 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://markvoelker.github.io/blog/defcore-for-devs</guid>
+      <description>
+
+&lt;p&gt;As DefCore has become more established over the past year or so, I&amp;rsquo;ve
+started getting more questions from project developers and PTL&amp;rsquo;s.  In most
+cases, they&amp;rsquo;re interested to know whether things they&amp;rsquo;re thinking about
+doing in their projects are &amp;ldquo;ok from a DefCore perspective&amp;rdquo; or
+would be &amp;ldquo;ok from an interoperability perspective&amp;rdquo;.  In some cases they&amp;rsquo;re
+basically just giving a quick (and appreciated!) heads-up and sometimes
+they&amp;rsquo;re generating terrific discussions.&lt;/p&gt;
+
+&lt;p&gt;So before we go on, let&amp;rsquo;s take a quick timeout to give a some kudos to
+developers and PTL&amp;rsquo;s that are now more than ever thinking about
+interoperability early on when making technical decisions&amp;ndash;&lt;strong&gt;that
+is &lt;em&gt;fantastic&lt;/em&gt;.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In the interest of making DefCore more approachable, I thought
+I&amp;rsquo;d try to write up some of the general themes that people are asking
+about and that OpenStack devs seem to want to know about.
+So, what does an OpenStack developer or PTL
+need to know about DefCore with respect to things you want to do in your
+project?&lt;/p&gt;
+
+&lt;h2 id=&#34;three-terms-you-should-know:d2a2793e5f378a8f8eb84dd2a2fe11a9&#34;&gt;&lt;strong&gt;Three terms you should know.&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;Consult the &lt;a href=&#34;https://github.com/openstack/defcore/blob/master/doc/source/process/Lexicon.rst&#34;&gt;Lexicon&lt;/a&gt;
+for more lingo, but here a couple of key terms you should definitely know:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/Lexicon.rst#n16&#34;&gt;Capability&lt;/a&gt;:
+Generally, a feature or thing you can do with the software, usually exposed
+as an API.  For example, listing volumes in Cinder or starting an instance
+in Nova.  Capabilities are defined by tests (more on that later).&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/CoreCriteria.rst&#34;&gt;Criteria&lt;/a&gt;:
+One of the factors DefCore considers when determining whether
+a given Capability should be required for OpenStack Powered&amp;trade; products.
+There are twelve in all which you can find information about
+&lt;a href=&#34;https://github.com/openstack/defcore/blob/master/doc/source/process/CoreCriteria.rst&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Guideline: A document published by DefCore and approved by the Board of
+Directors every six months which details the Capabilities that OpenStack
+Powered&amp;trade; products must expose to end users and the sections of
+upstream code they must use to do so.  I&amp;rsquo;ve heard these referred to as
+&amp;ldquo;the DefCore standards&amp;rdquo; occasionally.  You can find the two most recently
+Board-approved Guidelines as of this writing
+&lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/2015.07.json&#34;&gt;here&lt;/a&gt;
+and &lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/2016.01.json&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;any-capability-defcore-considers-must-have-tests:d2a2793e5f378a8f8eb84dd2a2fe11a9&#34;&gt;&lt;strong&gt;Any Capability DefCore considers &lt;em&gt;must&lt;/em&gt; have tests.&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;When DefCore considers adding new Capabilities to a Guideline, there must
+be some way for clouds to prove that the expose those Capabilities and do
+so in an interoperable way.  The teams of developers in the OpenStack
+community who are hacking on the code are in the best position to define
+what a given feature does and how it should work, so DefCore uses tests
+that are under the governance of the TC.  Today, those tests are mostly
+the ones that live in Tempest, but we&amp;rsquo;re also now able to use tests that live
+in the individual project trees as long as they&amp;rsquo;re runnable via the
+&lt;a href=&#34;http://docs.openstack.org/developer/tempest/plugin.html&#34;&gt;Tempest plugin interface&lt;/a&gt; (by the recent request projects that have additional tests in-tree).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Key takeaway: how DefCore defines a working Capability is dependant on
+how you define it in your tests (which must be in Tempest or runnable
+via the Tempest plugin interface).&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;capabilities-and-their-tests-should-not-require-admin-credentials:d2a2793e5f378a8f8eb84dd2a2fe11a9&#34;&gt;&lt;strong&gt;Capabilities and their tests should not require admin credentials.&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;If I&amp;rsquo;m using one of the
+&lt;a href=&#34;http://www.openstack.org/marketplace/public-clouds/&#34;&gt;many fine public clouds&lt;/a&gt;
+that are built on OpenStack, I&amp;rsquo;m not going to have admin privileges
+(many users of private clouds won&amp;rsquo;t either).
+Therefore, things that are generally only exposed to admins aren&amp;rsquo;t going
+to appear in DefCore Guidelines: they can&amp;rsquo;t be interoperable if end users
+can&amp;rsquo;t actually use them.  In many cases, what is exposed to admins
+vs ordinary users is controlled by policy (e.g. the
+&lt;a href=&#34;http://git.openstack.org/cgit/openstack/nova/tree/etc/nova/policy.json&#34;&gt;policy.json file&lt;/a&gt;
+that ships with most projects).
+In many products. the default settings that ship from upstream, are used
+by default, so that often becomes a good indicator: if it&amp;rsquo;s admin-only
+on git.openstack.org (such as the &lt;a href=&#34;http://git.openstack.org/cgit/openstack/neutron/tree/etc/policy.json#n52&#34;&gt;ability to create provider networks
+in Neutron&lt;/a&gt;
+it&amp;rsquo;s probably not going to be exposed to end users in most clouds and
+will therefore probably not appear in DefCore Guidelines.&lt;/p&gt;
+
+&lt;p&gt;The focus on end-user-accessible capabilities has an
+important implication for tests.  If your tests (in Tempest or in-tree)
+use admin credentials for features that are generally exposed to end users,
+&lt;em&gt;we can&amp;rsquo;t include those tests in DefCore Guidelines&lt;/em&gt;.  If all tests for
+a Capability use admin credentials, the Capability effectively has no tests
+we can use, and therefore the whole Capability won&amp;rsquo;t make it into a Guideline.&lt;/p&gt;
+
+&lt;p&gt;If users can&amp;rsquo;t run the tests to verify that clouds support the Capabilities
+in question, having them in the Guideline becomes fairly toothless.  It is
+therefore very important that Capabilities you want to see included in
+Guidelines both be exposed to end users by default and have tests that don&amp;rsquo;t
+require admin credentials.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Key takeaway: DefCore considers only things that are exposed to end users.
+Write your tests and policy files accordingly.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;adoption-is-key:d2a2793e5f378a8f8eb84dd2a2fe11a9&#34;&gt;&lt;strong&gt;Adoption is key.&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;I&amp;rsquo;ve &lt;a href=&#34;../defcore-misconceptions-1/&#34;&gt;previously written&lt;/a&gt;
+about how DefCore is a trailing indicator of market acceptance.  Basically
+it boils down to this: if few users using a given Capability and few products
+are supporting it, it&amp;rsquo;s very unlikely to appear in DefCore&amp;rsquo;s
+Guidelines.  Market acceptance in practice often ends up affecting or
+reflecting a number of the
+&lt;a href=&#34;https://github.com/openstack/defcore/blob/master/doc/source/process/CoreCriteria.rst&#34;&gt;DefCore Criteria&lt;/a&gt;.
+For instance:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Widely Deployed: Well, this one&amp;rsquo;s sort of obvious.&lt;/li&gt;
+&lt;li&gt;Used by Tools: If a feature or API isn&amp;rsquo;t supported by many clouds,
+it&amp;rsquo;s less likely that external SDK&amp;rsquo;s (jClouds, Fog, etc) and tools
+are going to add support for it since there&amp;rsquo;s probably less demand
+for doing so.&lt;/li&gt;
+&lt;li&gt;Used by Clients: if a feature isn&amp;rsquo;t supported by OpenStack&amp;rsquo;s own
+clients (OpenStackClient, the various python clients, perhaps Horizon) then
+that&amp;rsquo;s probably a sign that the feature isn&amp;rsquo;t fully matured yet and/or
+fewer people are using it (since there&amp;rsquo;s no client support).&lt;/li&gt;
+&lt;li&gt;Documented: End users tend to have a harder time using a given feature if
+it is poorly documented (or not documented at all).&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Etc, etc, etc (you get the picture)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Key takeaway: if you want to something end up as a required Capability
+in the DefCore Guidelines, the best thing you can do is convince the
+broader ecosystem to adopt it first.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Note that you don&amp;rsquo;t have to just write a feature and hope people like it.
+Projects like libcloud or jClouds would probably be happy to review patches
+you submit that add support for a new API.  The docs team would probably be
+happy to review patches to the docs describing how to use your new feature.
+&lt;a href=&#34;http://planet.openstack.org/&#34;&gt;Planet OpenStack&lt;/a&gt; would probably be happy to
+aggregate your blog post about how great it is and why people should use it.&lt;/p&gt;
+
+&lt;h2 id=&#34;more-than-one-way-of-doing-things-may-be-ok-sort-of:d2a2793e5f378a8f8eb84dd2a2fe11a9&#34;&gt;&lt;strong&gt;More than one way of doing things &lt;em&gt;may&lt;/em&gt; be ok&amp;hellip;sort of.&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;Some folks have been surprised to learn that there&amp;rsquo;s actually no rule
+barring DefCore Guidelines from including multiple ways to do something.
+There are a couple of scenarios in which this happens:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;API iteration.&lt;/strong&gt; Sometimes it&amp;rsquo;s simply a matter of more than one version
+of an API beingavailable: for example, in the Liberty release one
+could generate a token by talking to the Keystone v2 API (which was
+designated as SUPPORTED) or the Keystone v3 API (which was marked CURRENT).
+Two API&amp;rsquo;s usually have separate tests, and all versions of the API might
+not be available in all the releases covered by a single Guideline.
+DefCore considers them separate Capabilities.  Clearly, this can be a
+bit of a conundrum: projects may want long support periods for older
+API&amp;rsquo;s because they want to give end users ample time to migrate, or simply
+don&amp;rsquo;t ever want to break users.  API microversioning has become a
+popular way of helping ease introduction of new API&amp;rsquo;s in recent years.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Same output, very different mechanics.&lt;/strong&gt;  In some cases, there are
+Capabilities in which the end result is the same but the mechanics
+and use cases are very, very different.  For example: I can create
+an image by snapshotting a running compute instance.  At the end of
+that operation, what I end up with is a bootable image.  I could also create
+a bootable image by uploading an image file to Glance.  The use cases here
+are obviously quite different though: in one case I&amp;rsquo;m creating an image from
+an instance I already have running in the cloud, and in the other I&amp;rsquo;m
+uploading one from outside the cloud.  So it&amp;rsquo;s quite reasonable to think that
+end users might want to have both Capabilities exposed to them.
+Additionally, here again we have separate API&amp;rsquo;s with separate tests.
+This scenario generally isn&amp;rsquo;t as much of a problem as long as it&amp;rsquo;s well
+understood and well documented.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Really pretty much the same.&lt;/strong&gt;  In a few cases, there really is
+more than one way to do a thing without substantial differences in
+the use cases.  For example, I can list images available to me via the
+Glance API or via the Nova image API (which is basically a proxy to
+Glance v1).  Both give me a listing of images, and assuming both are
+available I could probably use either one for most use cases.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Some mixture of 1-3.&lt;/strong&gt;  Occasionally we run into cases where there&amp;rsquo;s
+some combination of the above scenarios in play.  For example, there are
+plenty of clouds where two versions of the Glance API and the Nova image API
+are all exposed to users, so there are at least 3 ways to list images.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;It&amp;rsquo;s important to note that when there&amp;rsquo;s more than one way to do something
+it&amp;rsquo;s sometimes harder for any of them to make their way into DefCore Guidelines.
+That boils down to adoption and inertia: if there are several ways to do
+the same thing then different SDK&amp;rsquo;s, tools, and end users often pick different
+ways of doing things, and no one (or more) way becomes clearly well adopted.
+Once SDK&amp;rsquo;s, tools, and end users have settled on a method of doing something,
+there&amp;rsquo;s a real cost to them to change to something else (and if it isn&amp;rsquo;t broken,
+why change?).  Therefore they tend to stick with the option they&amp;rsquo;ve
+chosen unless they&amp;rsquo;re given a really good reason to switch (like, for example,
+a given API being officially deprecated).&lt;/p&gt;
+
+&lt;p&gt;In some cases we may find that more than one method of doing something
+does actually become very well adopted, supported by tools and clients, etc
+and therefore score high enough to be included in a Guideline.  But in
+practice, it&amp;rsquo;s often a tougher hill to climb.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Key takeaway: be careful when introducing multiple ways to do things.&lt;/em&gt;&lt;/strong&gt;
+It&amp;rsquo;s not strictly disallowed, but creating fragmentation
+might make it harder for capabilities to become well adopted and therefore
+become interoperable.&lt;/p&gt;
+
+&lt;p&gt;As an aside, there are a few things projects can do to help nudge acceptance
+of one method or another when there are multiple ways to do something:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If your project really doesn&amp;rsquo;t intend to maintain an older API any more,
+it may be useful to start the &lt;a href=&#34;https://governance.openstack.org/reference/tags/assert_follows-standard-deprecation.html&#34;&gt;deprecation process&lt;/a&gt;
+sooner rather than later as a clear signal to users, SDK&amp;rsquo;s, and tools
+that it&amp;rsquo;s time to move (this also signals DefCore that the old API
+shouldn&amp;rsquo;t score points for the Future Direction criteria, too).&lt;/li&gt;
+&lt;li&gt;If you have a feature that you think is primarily oriented at internal
+use (e.g. one OpenStack service talking to another) and shouldn&amp;rsquo;t be
+exposed to end users, you should clearly document it as such (and, if
+it makes sense to do so, restrict it&amp;rsquo;s use via default settings in the
+policy files).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;keep-in-mind-there-s-a-long-tail:d2a2793e5f378a8f8eb84dd2a2fe11a9&#34;&gt;&lt;strong&gt;Keep in mind there&amp;rsquo;s a long tail.&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;DefCore Guidelines cover three OpenStack releases.  For example, the most
+recently Board-approved DefCore Guideline &lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/2016.01.json#n9&#34;&gt;covers Juno, Kilo, and Liberty&lt;/a&gt;.
+The previous Guideline covered &lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/2015.07.json#n9&#34;&gt;Icehouse, Juno, and Kilo&lt;/a&gt;.
+When a product asks for an &lt;a href=&#34;http://www.openstack.org/brand/interop/&#34;&gt;OpenStack Powered&amp;trade;&lt;/a&gt;
+logo and license agreement from the OpenStack Foundation, they can choose
+to do so under either of the two most recently Board-approved Guidelines.
+Which Guideline the product used is noted in the
+&lt;a href=&#34;http://www.openstack.org/marketplace&#34;&gt;MarketPlace&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Because a Guideline applies to three releases, a given Capability
+must have been supported in at least all three of those upstream
+releases.  If you introduce a new feature today, it&amp;rsquo;s going to
+take some time before it&amp;rsquo;s realistically possible to get it into the
+DefCore Guidelines.  And bear in mind that it&amp;rsquo;s not just time: once the
+Capability has been around for a while, it still
+needs to meet all the other &lt;a href=&#34;https://github.com/openstack/defcore/blob/master/doc/source/process/CoreCriteria.rst&#34;&gt;DefCore Criteria&lt;/a&gt;
+before it makes it&amp;rsquo;s way into the Guidelines.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Key takeaway: be patient and promote adoption.&lt;/em&gt;&lt;/strong&gt; The Criteria we&amp;rsquo;re using
+&lt;a href=&#34;https://github.com/openstack/defcore/blob/master/doc/source/process/CoreCriteria.rst&#34;&gt;are documented&lt;/a&gt;,
+so if you&amp;rsquo;re motivated to help a given capability achieve those criteria
+(maybe by contributing support for it to popular tools/SDK&amp;rsquo;s, or by
+beefing up documentation, or by generally evalgelizing a feature or API),
+go for it!&lt;/p&gt;
+
+&lt;h2 id=&#34;there-are-some-useful-documents-in-the-defcore-git-repo:d2a2793e5f378a8f8eb84dd2a2fe11a9&#34;&gt;&lt;strong&gt;There are some useful documents in the DefCore Git repo.&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;Much of the documentation about how and when DefCore does things and
+how it makes it&amp;rsquo;s decisions is actually documented.  You&amp;rsquo;re always free
+to come ask questions (see below), but if you&amp;rsquo;re the sort that would
+like a little bedtime reading, you might start with things like:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/openstack/defcore/blob/master/doc/source/process/2015B.rst&#34;&gt;The current process doc&lt;/a&gt;
+which explains timelines, key actors, etc.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/openstack/defcore/blob/master/doc/source/process/CoreCriteria.rst&#34;&gt;The Criteria doc&lt;/a&gt;
+which explains factors that DefCore looks at when determining whether to
+include a Capability in it&amp;rsquo;s Guideline documents.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.openstack.org/brand/interop/&#34;&gt;The Foundation&amp;rsquo;s Interop page&lt;/a&gt;
+which has information about the OpenStack Powered&amp;trade; program and what&amp;rsquo;s
+included in it today.  Among other things, you&amp;rsquo;ll find links to the two
+most recent Board-approved Guidelines and contact information.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Oh, and if by chance you&amp;rsquo;re a fan of Doctor Who you might also want to
+peruse
+&lt;a href=&#34;http://www.slideshare.net/markvoelker/defcore-the-interoperability-standard-for-openstack-53040869&#34;&gt;this presentation&lt;/a&gt;
+that I did a while back.  It&amp;rsquo;s a little dated now, but you&amp;rsquo;ll at least be
+mildly entertained.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Questions?  Comments?  Drop by #openstack-defcore on IRC or drop the
+DefCore Committee a line at
+&lt;a href=&#34;mailto:defcore-committee@lists.openstack.org&#34;&gt;defcore-committee@lists.openstack.org&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>DefCore Misconceptions Part 2: Debunking Advisory Status</title>
@@ -104,7 +386,7 @@ today?  &lt;em&gt;Not quite.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;There is actually a
 &lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/doc/source/process/Lexicon.rst#n13&#34;&gt;definition&lt;/a&gt;
 of advisory status included in the DefCore lexicon, and it&amp;rsquo;s fairly simple: it
-means that a Capability has &lt;em&gt;been &lt;strong&gt;suggested&lt;/strong&gt; for the next Guideline&lt;/em&gt;.  Note
+means that a Capability has *been &lt;strong&gt;suggested&lt;/strong&gt; for the next Guideline*.  Note
 that word: &lt;em&gt;suggested&lt;/em&gt;.  Essentially, the DefCore Committee is saying to
 the world: &amp;ldquo;hey ladies and gents, we&amp;rsquo;re thinking about requiring this
 Capability in the future&amp;ndash;what do you think about that?&amp;rdquo;  In other words:&lt;/p&gt;

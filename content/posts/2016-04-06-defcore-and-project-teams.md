@@ -2,7 +2,7 @@
 title = "DefCore: What OpenStack Devs Need to Know"
 author = "markvoelker"
 date = "2016-04-06"
-url = "/defcore-cheat-sheet"
+url = "/defcore-for-devs"
 socialsharing = true
 description = "A quick guide for to DefCore for PTL's and other developers."
 categories = ["DefCore","OpenStack"]
