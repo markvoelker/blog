@@ -64,7 +64,7 @@ and &lt;a href=&#34;http://git.openstack.org/cgit/openstack/defcore/tree/2016.01
 &lt;h2 id=&#34;any-capability-defcore-considers-must-have-tests:d2a2793e5f378a8f8eb84dd2a2fe11a9&#34;&gt;&lt;strong&gt;Any Capability DefCore considers &lt;em&gt;must&lt;/em&gt; have tests.&lt;/strong&gt;&lt;/h2&gt;
 
 &lt;p&gt;When DefCore considers adding new Capabilities to a Guideline, there must
-be some way for clouds to prove that the expose those Capabilities and do
+be some way for clouds to prove that they expose those Capabilities and do
 so in an interoperable way.  The teams of developers in the OpenStack
 community who are hacking on the code are in the best position to define
 what a given feature does and how it should work, so DefCore uses tests
@@ -89,10 +89,10 @@ can&amp;rsquo;t actually use them.  In many cases, what is exposed to admins
 vs ordinary users is controlled by policy (e.g. the
 &lt;a href=&#34;http://git.openstack.org/cgit/openstack/nova/tree/etc/nova/policy.json&#34;&gt;policy.json file&lt;/a&gt;
 that ships with most projects).
-In many products. the default settings that ship from upstream, are used
+In many products the default settings that ship from upstream are used
 by default, so that often becomes a good indicator: if it&amp;rsquo;s admin-only
 on git.openstack.org (such as the &lt;a href=&#34;http://git.openstack.org/cgit/openstack/neutron/tree/etc/policy.json#n52&#34;&gt;ability to create provider networks
-in Neutron&lt;/a&gt;
+in Neutron&lt;/a&gt;)
 it&amp;rsquo;s probably not going to be exposed to end users in most clouds and
 will therefore probably not appear in DefCore Guidelines.&lt;/p&gt;
 
@@ -157,7 +157,7 @@ There are a couple of scenarios in which this happens:&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;API iteration.&lt;/strong&gt; Sometimes it&amp;rsquo;s simply a matter of more than one version
-of an API beingavailable: for example, in the Liberty release one
+of an API being available: for example, in the Liberty release one
 could generate a token by talking to the Keystone v2 API (which was
 designated as SUPPORTED) or the Keystone v3 API (which was marked CURRENT).
 Two API&amp;rsquo;s usually have separate tests, and all versions of the API might
