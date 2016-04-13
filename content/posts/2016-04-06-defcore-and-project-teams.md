@@ -57,7 +57,7 @@ for more lingo, but here a couple of key terms you should definitely know:
 -----------------------------------------------------
 
 When DefCore considers adding new Capabilities to a Guideline, there must
-be some way for clouds to prove that the expose those Capabilities and do
+be some way for clouds to prove that they expose those Capabilities and do
 so in an interoperable way.  The teams of developers in the OpenStack
 community who are hacking on the code are in the best position to define
 what a given feature does and how it should work, so DefCore uses tests
@@ -83,10 +83,10 @@ can't actually use them.  In many cases, what is exposed to admins
 vs ordinary users is controlled by policy (e.g. the 
 [policy.json file](http://git.openstack.org/cgit/openstack/nova/tree/etc/nova/policy.json)
 that ships with most projects).
-In many products. the default settings that ship from upstream, are used
+In many products the default settings that ship from upstream are used
 by default, so that often becomes a good indicator: if it's admin-only
 on git.openstack.org (such as the [ability to create provider networks
-in Neutron](http://git.openstack.org/cgit/openstack/neutron/tree/etc/policy.json#n52)
+in Neutron](http://git.openstack.org/cgit/openstack/neutron/tree/etc/policy.json#n52))
 it's probably not going to be exposed to end users in most clouds and
 will therefore probably not appear in DefCore Guidelines.
 
@@ -150,7 +150,7 @@ barring DefCore Guidelines from including multiple ways to do something.
 There are a couple of scenarios in which this happens:
 
 1. **API iteration.** Sometimes it's simply a matter of more than one version
-   of an API beingavailable: for example, in the Liberty release one
+   of an API being available: for example, in the Liberty release one
    could generate a token by talking to the Keystone v2 API (which was
    designated as SUPPORTED) or the Keystone v3 API (which was marked CURRENT).
    Two API's usually have separate tests, and all versions of the API might
