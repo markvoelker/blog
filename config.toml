@@ -1,8 +1,11 @@
+baseurl = "http://markvoelker.github.io/blog"
+languageCode = "en-us"
+title = "Technology is Fun Because It's Always Changing"
+theme = "redlounge"
+Paginate = 5
 contentdir = "content"
 layoutdir = "layouts"
 publishdir = "public"
-baseurl = "http://markvoelker.github.io/blog"
-title = "Technology is Fun Because It's Always Changing"
 canonifyurls = true
 
 [index]
@@ -10,6 +13,10 @@ canonifyurls = true
   tag = "tags"
 
 [params]
+  twitterName = "marktvoelker"
+  githubName = "markvoelker"
+  linkedinName = "markvoelker"
+  hideSidebarIconText = true
   sidebartitle = "Future Relics"
   sidebartagline = "Everything we work on goes obsolete someday--and that's what makes it so much fun."
 
