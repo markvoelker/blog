@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Edge on Technology is Fun Because It&#39;s Always Changing</title>
+    <link>http://markvoelker.github.io/blog/categories/edge/</link>
+    <description>Recent content in Edge on Technology is Fun Because It&#39;s Always Changing</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 08 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://markvoelker.github.io/blog/categories/edge/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Dublin PTG 2018: The Edge Sessions</title>
+      <link>http://markvoelker.github.io/blog/dublin-ptg-edge-sessions/</link>
+      <pubDate>Thu, 08 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://markvoelker.github.io/blog/dublin-ptg-edge-sessions/</guid>
+      <description>I recently got snowed in at a hotel in Dublin with a couple hundred people I consider friends, a well-stocked bar/restaurant, a fantastic event staff, and a lot of energy.
+I know&amp;hellip;poor me, right? =)
+Before Storm Emma and the Beast from the East settled in on the OpenStack Project Team Gathering and forced the Croke Park Stadium to close (thereby giving birth to the hashtag &amp;ldquo;snowpenstack&amp;rdquo;), we got a solid start to the week.</description>
+    </item>
+    
+  </channel>
+</rss>

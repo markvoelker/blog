@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <title>
+    Dublin PTG 2018: The Edge Sessions // Technology is Fun Because It&#39;s Always Changing
+  </title>
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+<meta name="description" content="At the recent Project Team Gathering in Dublin, the FEMDC SIG met to talk about edge computing use cases for OpenStack.  These are my notes from the meeting.">
+<meta name="keywords" content="">
+<meta name="author" content="markvoelker">
+<meta name="generator" content="Hugo 0.37.1" />
+
+  <meta property="og:title" content="Dublin PTG 2018: The Edge Sessions" />
+<meta property="og:description" content="At the recent Project Team Gathering in Dublin, the FEMDC SIG met to talk about edge computing use cases for OpenStack.  These are my notes from the meeting." />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="http://markvoelker.github.io/blog/dublin-ptg-edge-sessions/" />
+
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/base-min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
+  
+  
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/grids-responsive-min.css">
+  
+  
+
+  <link rel="stylesheet" href="http://markvoelker.github.io/blog/css/redlounge.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,200,100,700,300,500,600,800' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://markvoelker.github.io/blog/touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" type="image/x-icon" href="http://markvoelker.github.io/blog/img/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Technology is Fun Because It&#39;s Always Changing" />
+
+    
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/tomorrow-night-bright.min.css">
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+
+  
+
+  
+
+  
+
+  
+</head>
+
+<body>
+	
+
+	<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+  <div class="header">
+    
+
+	
+
+    <h1 class="brand-title">Future Relics</h1>
+    <h2 class="brand-tagline">Everything we work on goes obsolete someday--and that&#39;s what makes it so much fun.</h2>
+
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item"><span class="nav-item-separator">//</span><a href="http://markvoelker.github.io/blog">Home</a></li>
+        
+          <li class="nav-item"><span class="nav-item-separator">//</span><a href="http://markvoelker.github.io/blog/index.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+
+    
+    <div class="social-buttons">
+      
+        
+        <a href="http://www.twitter.com/marktvoelker" target="_blank"><i class='fa fa-twitter'></i></a>
+        
+      
+        
+        <a href="http://www.linkedin.com/in/markvoelker" target="_blank"><i class='fa fa-linkedin'></i></a>
+        
+      
+      
+    </div>
+    
+
+  </div>
+</div>
+
+	
+	
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+		<a name="top"></a>
+		
+
+		
+			
+	    
+  		<section class="post">
+            <h1 class="post-title">
+              <a href="http://markvoelker.github.io/blog/dublin-ptg-edge-sessions/">Dublin PTG 2018: The Edge Sessions</a>
+            </h1>
+            <h3 class="post-subtitle">
+            	
+            </h3>
+            
+            	<span class="post-date">
+                	<span class="post-date-day"><sup>8</sup></span><span class="post-date-separator">/</span><span class="post-date-month">Mar</span> <span class="post-date-year">2018</span>
+            	</span>
+            	
+            
+            	
+            		<span class="post-author-single">By <a class="post-author"  target="">markvoelker</a></span>
+            		
+
+
+
+
+            	
+            
+
+			
+			
+				<div class="post-categories">
+				
+					<a class="post-category post-category-edge" href="http://markvoelker.github.io/blog/categories/edge">Edge</a>
+				
+					<a class="post-category post-category-openstack" href="http://markvoelker.github.io/blog/categories/openstack">OpenStack</a>
+				
+					<a class="post-category post-category-femdc" href="http://markvoelker.github.io/blog/categories/femdc">FEMDC</a>
+				
+				</div>
+			
+
+			
+		    	<div class="social-sharing">
+	<a class="share-button-facebook" onClick="return popupShare(this.href);" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fmarkvoelker.github.io%2fblog%2fdublin-ptg-edge-sessions%2f" target="_blank"><i class="fa fa-facebook"><span>Like</span></i></a>
+	<a class="share-button-google-plus" onClick="return popupShare(this.href);" href="https://plus.google.com/share?url=http%3a%2f%2fmarkvoelker.github.io%2fblog%2fdublin-ptg-edge-sessions%2f" target="_blank"><i class="fa fa-google-plus"><span>Google +1</span></i></a>
+	<a class="share-button-linkedin" onClick="return popupShare(this.href);" href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fmarkvoelker.github.io%2fblog%2fdublin-ptg-edge-sessions%2f&title=Dublin%20PTG%202018%3a%20The%20Edge%20Sessions&summary=I%20recently%20got%20snowed%20in%20at%20a%20hotel%20in%20Dublin%20with%20a%20couple%20hundred%20people%20I%20consider%20friends%2c%20a%20well-stocked%20bar%2frestaurant%2c%20a%20fantastic%20event%20staff%2c%20and%20a%20lot%20of%20energy.%0aI%20know%26hellip%3bpoor%20me%2c%20right%3f%20%3d%29%0aBefore%20Storm%20Emma%20and%20the%20Beast%20from%20the%20East%20settled%20in%20on%20the%20OpenStack%20Project%20Team%20Gathering%20and%20forced%20the%20Croke%20Park%20Stadium%20to%20close%20%28thereby%20giving%20birth%20to%20the%20hashtag%20%26ldquo%3bsnowpenstack%26rdquo%3b%29%2c%20we%20got%20a%20solid%20start%20to%20the%20week.}&source=Technology%20is%20Fun%20Because%20It%27s%20Always%20Changing" target="_blank"><i class="fa fa-linkedin"><span>Share on LinkedIn</span></i></a>
+	<a class="share-button-twitter" onClick="return popupShare(this.href);" href="http://twitter.com/share?text=Dublin%20PTG%202018%3a%20The%20Edge%20Sessions&url=http%3a%2f%2fmarkvoelker.github.io%2fblog%2fdublin-ptg-edge-sessions%2f" target="_blank"><i class="fa fa-twitter"><span>Tweet</span></i></a>	
+</div>
+		    
+
+			
+
+            <p>I recently got snowed in at a hotel in Dublin with a couple hundred people I
+consider friends, a well-stocked bar/restaurant, a fantastic event staff, and
+a lot of energy.</p>
+
+<p><strong>I know&hellip;<em>poor me</em>, right?</strong> =)</p>
+
+<p><img src="http://markvoelker.github.io/blog/images/snowpenstack_croke_park.jpg" style="height:450px;width:600px" title="Croke Park as the storm begins to settle in.  The venue closed Thursday afternoon and we all crammed into the Croke Park Hotel across the street."/></p>
+
+<p>Before Storm Emma and the Beast from the East settled in on the OpenStack
+Project Team Gathering and forced the Croke Park Stadium to close (thereby
+giving birth to the hashtag
+&ldquo;<a href="https://twitter.com/search?q=%23snowpenstack">snowpenstack</a>&rdquo;), we got a solid
+start to the week.  I spent most of my Monday at a meeting with Board of
+Directors and most of my Tuesday at a meeting with the
+<a href="https://wiki.openstack.org/wiki/Fog_Edge_Massively_Distributed_Clouds">FEMDC SIG</a>
+talking about Edge computing use cases.  As with any long technical discussion,
+there was a lot to take in and try to keep straight in my head later, so I
+thought it&rsquo;d be useful to dump some of my notes here.</p>
+
+<p>First and foremost, I should note that my ramblings here are a supplement to
+the official etherpads we used during the event for collaborative note-taking:</p>
+
+<ul>
+<li><a href="https://etherpad.openstack.org/p/edge-ptg-dublin">The main agenda etherpad</a></li>
+<li><a href="https://etherpad.openstack.org/p/edge-use-case-questions">Edge use case questions</a></li>
+<li><a href="https://etherpad.openstack.org/p/edge-gap-analysis">Edge gap analysis</a></li>
+<li>And finally, the pad we spent most of the afternoon with: <a href="https://etherpad.openstack.org/p/edge-gap-analysis">Alan&rsquo;s Problems</a>  (&ldquo;Alan&rdquo; is <a href="https://twitter.com/Alan_Meadows">Alan Meadows</a> who
+generously contributed a lot of real-world experience and suggestions to the
+discussion based on his work at AT&amp;T.)</li>
+</ul>
+
+<p>If you&rsquo;re not familiar with Edge use cases, it&rsquo;s probably worth a brief pause
+here to check out
+<a href="https://www.openstack.org/assets/edge/OpenStack-EdgeWhitepaper-v3-online.pdf">Cloud Edge Computing: Beyond the Data Center</a>,
+a whitepaper the group published earlier this year.  One important factor in
+the use cases we&rsquo;re talking about here is that &ldquo;the cloud&rdquo; will be distributed
+to a lot of different sites in geographically dispersed areas.  This is a big
+change in thinking if you&rsquo;ve been working in &ldquo;classical cloud computing&rdquo; where
+the general notion is to pool a (potentially tremendous) amount of
+compute/storage/etc resources into one or a few large datacenters.  Imagine,
+for example, that you want a small amount of computing capacity to be available
+at every cell tower you own in China.
+Or that you want to run virtualized applications on customer premise equipment:
+like every set-top box in New York City.  Also,
+consider that your compute capacity might not even stay in one place: you might
+have some capacity in a train or a connected bus barreling down the Autobahn.  Not
+only might these pools of capacity move, they might also disappear for a time
+and then reappear later.</p>
+
+<p>Keeping capacity close to the end user is one of the many factors that makes
+edge computing use cases &ldquo;squeeze&rdquo; OpenStack at different points than classical
+large-pools-of-capacity-in-big-datacenters use cases might.  If you have hundreds
+of thousands of pools of capacity scattered across a large geographic area, is
+it actually practical to centralize the control plane?  Do you need tiers as
+opposed to a flat or two-level hierarchy?  Latency certainly seems like a
+challenge in these environments, but also resiliency: you certainly don&rsquo;t want
+the capacity at all those cell towers to be rendered unusable if a centralized
+component goes down.</p>
+
+<p>The morning started off with some thinking about how we wanted to approach the
+discussion for the rest of the day.  Based on previous discussions, two basic
+strategies were in play: a &ldquo;top-down&rdquo; approach where there are multiple OpenStack
+instances managed by some higher-level entity, or a &ldquo;bottom-up&rdquo; approach where
+a cluster of OpenStack instances have some shared components that provide
+management (for example: they might all share a Keystone instance).  After some
+discussion, it was decided to focus most of the rest of the day&rsquo;s discussion on
+an architecture that features multiple (potentially thousands) of regions, with
+some top-level orchestration to help push common components like images or users
+to multiple regions.</p>
+
+<p>If you&rsquo;re not familiar with the concept of regions in OpenStack, here&rsquo;s a quick
+primer: generally speaking, regions in OpenStack are thought of as geographically
+distinct OpenStack entities under common control. For example, in a &ldquo;classical
+cloud&rdquo; use case, I might have a private cloud with a &ldquo;us-west&rdquo; and &ldquo;us-east&rdquo;
+region for users within my company based in San Francisco and New York.  In
+most cases, regions are separate API endpoints and each region has it&rsquo;s own
+control plane&ndash;that is, it&rsquo;s own instances of things like Nova, Neutron, etc.
+In some deployments they may share some components (typically Keystone or Horizon)
+but in many cases those, too, are unique to each site.</p>
+
+<p>If we expand the use of regions to Edge use cases, you might think of a few
+servers at every cell tower constituting a region, or an entire OpenStack region
+consisting of a lightweight deployment all housed on a set top box.  As the
+number of regions piles up in the Edge world, it becomes quickly evident that
+some way of managing all those regions is needed.</p>
+
+<p>It&rsquo;s worth noting before we go on that this is just one deployment scenario, not
+necessarily &ldquo;the&rdquo; deployment scenario that fits all use cases.  Depending on
+your use case, it&rsquo;s easy to imagine variants: for example, instead of making
+each set-top box in an apartment building it&rsquo;s own region, I might put a control
+plane in an electrical closet somewhere and have each set top box serve simply as
+a compute host.</p>
+
+<p>Having chosen an architecture to hone in on for the day, Alan began relating
+some of the challenges he&rsquo;d experienced with such an approach and tooling
+currently in place. That prompted
+<a href="https://twitter.com/jbryce">Jonathan Bryce</a> to whip up a new etherpad for
+<a href="https://etherpad.openstack.org/p/edge-alans-problems">Alan&rsquo;s Problems</a> so we
+could dig in and work out how to solve them.  An advantage of this architectural
+approach is that it&rsquo;s closer at hand: we already have capabilities in the
+OpenStack software to build a substantial portion of such an architecture (for
+example: the concept of regions has been a thing in OpenStack since the very
+early days).</p>
+
+<p>I&rsquo;ll spare you most of the details of the discussion since much of it is captured
+<a href="https://etherpad.openstack.org/p/edge-alans-problems">in the etherpad</a> but
+essentially we started boiling things down into something that looks like this:</p>
+
+<pre>
+-------------  ----------- -------
+| "Golden   |  | "Golden | | NKB |      < Centralized
+|  Keystone"|  |  Glance"| |     |        (or tiered)       
+-------------  ----------- -------
+         \        |          /
+          \       |         /
+          ==================
+          /       |    |||  \
+         /        |    |||   \
+---------- ----------       ----------
+|region 1| |region 2| |...| |region n|      < Geographically dispersed
+---------- ----------       ----------
+</pre>
+
+<p>The general idea here is that in a (massively)multi-region architecture, there
+are probably still a great number of things that you&rsquo;d want to be propagated
+to all or just some regions.  For example: when I onboard a new user or create
+a new project, I might want that new user to appear in all regions, or I might
+want that project just to exist in certain regions (perhaps &ldquo;all regions in
+a certain geography&rdquo; or &ldquo;all regions that are actually trains&rdquo;, or even
+&ldquo;all regions that have a policy entitlement to run certain workloads&rdquo;).  Glance
+is conceptually similar: I might have a certain VNF image that I want propagated
+to all or many regions. However I as a human being would probably be really
+frustrated if I had to upload an image or create a user manually on hundreds or
+thousands of endpoints.  It&rsquo;s worth calling out that &ldquo;create&rdquo; is just one action:
+I might also need to update things, delete them, see what their state is, etc.
+Moreover, I as a human don&rsquo;t want to have to keep tabs on that over time and make
+sure that if I asked for certain objects to be in certain places that they get
+there and stay there.</p>
+
+<p>This is where the concept of &ldquo;intent&rdquo; comes in (and with it, the mysterious &ldquo;NKB&rdquo;
+block in the diagram above).  Imagine if I only had to push an image to a single
+instance of Glance (a &ldquo;golden&rdquo; Glance if you will) and in doing so I could also
+issue some statement of intent.  That statement might be something like:</p>
+
+<ul>
+<li>&ldquo;Here is my image, it should be in all regions tagged &lsquo;set-top-box&rsquo;.&rdquo;</li>
+<li>&ldquo;Here is my image, it should be available to download in all regions marked
+&lsquo;cell-towers-with-1-mile-of-denver&rsquo; and should actually be present in all
+regions marked &lsquo;high-use-towers-within-1-mile-of-denver&rsquo;.</li>
+<li>&ldquo;Here is my image, nuke it from orbit in all regions.&rdquo;</li>
+</ul>
+
+<p>Getting an image into Glance is pretty standard stuff: I can simply deploy a
+centralized Glance server (or more likely a horizontally-scaled set of them).
+The &ldquo;intent&rdquo; bit could <em>possibly</em> be accomplished using existing metadata
+primitives available in various OpenStack services: things like image metadata,
+Neutron tags, extra specs, etc.  Again: it might be useful to make use of
+existing primitives because they already exist, so we can get a head start on
+getting a solution deployed.  We could alternately have a single service that
+provides a more descriptive and unified language for this.  We then also need
+something that carries out the intent that we&rsquo;ve provided&ndash;and makes sure it
+stays carried out.  E.g. if the image I said should be in a certain region gets
+deleted somehow, that abnormal state should be detected and resolved by having
+the image synchronized from the &ldquo;golden Glance&rdquo; again.</p>
+
+<p>That last bit involves carrying out actions across multiple regions (among
+other things).  Orchestrating an action over multiple regions sounds a bit
+like what the
+<a href="http://git.openstack.org/cgit/openstack/kingbird/tree/README.rst">Kingbird project</a>
+does, though it also has other elements to it (one might imagine, for example,
+using something like
+<a href="http://git.openstack.org/cgit/openstack/congress/tree/README.rst">Congress</a> to
+define policy or &ldquo;intent&rdquo;.  For the sake of simplicity in conversation, we
+referred to the synchronization/intent/policy service as simply &ldquo;New Kingbird&rdquo;
+(or &ldquo;NKB&rdquo;) for lack of a better name.  Elements of what we need for such a
+service already exist in parts in other services, but it&rsquo;s likely we need to
+build either some glue or a new component for this part of the architecture.</p>
+
+<p>One point was reiterated several times that bears repeating here as well: any
+time you&rsquo;re dealing with an intent-based or policy-based system with a
+potentially very large number of endpoints to manage, you also need to be able
+to query the system to see what it&rsquo;s progress is toward fulfilling your stated
+intent.  If we imagine a &ldquo;New Kingbird&rdquo; component, that means I should be able
+to ask it things like &ldquo;Hey, I asked you to push this image to a bunch of regions
+&hellip;is it there yet?&rdquo; and have it answer &ldquo;Your image now exists in region A,
+I&rsquo;m pushing it to C, D, and F right now, E-G will be next, and oh by the way I
+got a connection timeout from B when I tried 13 seconds ago so I&rsquo;ll try it again
+in 47 seconds (which will mark my fourth attempt).&rdquo;</p>
+
+<p>I think that provides a basic architectural overview&hellip;that said, there were
+a ton of details also discussed.  I&rsquo;ll note a few here, but once again I&rsquo;ll
+invite you to
+<a href="https://etherpad.openstack.org/p/edge-alans-problems">check out the etherpad</a>
+for more.</p>
+
+<ul>
+<li>We should not assume that a given user has administrative rights either to the
+&ldquo;golden&rdquo; components or to all regions.  For example, a given user might state
+his intent to push a new project to region A, but his access rights might only
+allow him to push it to B, C, and D.</li>
+<li>There is a need for some sort of portal (I for one dare not say &ldquo;single pane
+of glass&rdquo;!) to get a general overview of what&rsquo;s going on and what state things
+are in.  Here again though, privilege levels and roles should be considered.</li>
+<li>The diagram I&rsquo;ve drawn above shows a simple two-level hierarchy.  One should
+not assume that&rsquo;s the way it would actually work for a substantially large and
+dispersed use case: there might actually be hierarchies here (for example,
+a &ldquo;golden keystone&rdquo; that serves all regions in a metropolitan area rather than
+an entire country&hellip;but that can pull users/projects it wants to propagate to
+it&rsquo;s child regions from a central &ldquo;golden Keystone&rdquo; higher up).</li>
+<li>It should also not be assumed that all regions need to pull directly from a
+single &ldquo;golden&rdquo; instance, though that&rsquo;s perhaps the easiest thing to diagram
+to kickstart a conversation.  Instead, imagine a world where Region A might
+receive an instruction that it needs to download a particular image.  It could
+get it from a central &ldquo;golden Glance&rdquo; but it might also know that it has
+high bandwidth/low latency connections to Region B, C, and D available.  Upon
+querying, it determines that C has already downloaded the image, so A fetches
+it from C rather than going to a central source.  This sort of peer-to-peer
+structure bears some resemblance to other things that already have code and
+protocols established (for example:
+<a href="http://www.bittorrent.org/beps/bep_0003.html">BitTorrent</a> or perhaps even
+blockchains for bits about intent and assertion).</li>
+<li>One advantage of this architecture is that it provides a degree of separation
+of concerns.  Imagine a simple two-level hierarchy with a &ldquo;golden Glance&rdquo;
+and a hundred regions beneath it.  It&rsquo;s simple for the admin, since he can
+push an image to one place and have it propagate to many.  But it also provides
+some resiliency: if that &ldquo;golden Glance&rdquo; goes down, all the regions can keep
+operating (they simply won&rsquo;t receive new images or commands to delete existing
+ones, etc until the golden Glance returns).  If something <em>truly</em> catastrophic
+happens, one would also theoretically still be able to use the API endpoints
+of the individual regions to re-exert control in the absence of the centralized
+components (would it be tedious and require a lot of foreach loops?  Yes.
+Would it be possible to do things?  Also yes.).  Add in the torrent-like
+capability mentioned in the previous bullet point, and you get an even more
+resilient architecture.</li>
+<li>There are some discernable differences in the types of things we&rsquo;d want to
+propagate down to regions.  For example: a &ldquo;user&rdquo; or &ldquo;project&rdquo; amounts to
+a few rows in a database (which is small and fast to push even on relatively
+low speed/high latency links).  A VM image, on the other hand, might be
+several gigabytes and take considerably longer.  Those sort of differences
+should be taken into account, and point to the need for things like the
+ability to query current state vs intended and progress to synchronizing the
+two.  It also points to the potential use case for &ldquo;lazy loading&rdquo; of some
+object types.  I might know that a give image is going to be needed in a
+handful of regions and declare my intent that it should be pushed down to
+all of them.  I might also know that the same image <em>might</em> be needed in
+some others, but not necessarily and it might be ok if it took a while to
+start up.  For those regions, I might merely want to declare intent that the
+image be available to them (e.g. it resides in another region they know how
+to talk to, or in a central/regional place that they can download from) and
+let them fetch it when and if it&rsquo;s needed.</li>
+<li>Another service that might factor into this design is the
+<a href="https://docs.openstack.org/nova/queens/user/placement.html">placement service</a>
+from Nova (which might
+<a href="http://lists.openstack.org/pipermail/openstack-dev/2018-March/128004.html">eventually be extracted</a>
+into it&rsquo;s own standalone repository/service.  It already offers things like
+<a href="https://docs.openstack.org/nova/latest/user/placement.html#traits-api">traits</a>
+and <a href="https://specs.openstack.org/openstack/nova-specs/specs/newton/implemented/generic-resource-pools.html">resource pools</a>
+that would be potentially useful.</li>
+<li>It&rsquo;s also entirely possible that not all regions will be the same: some might
+be configured differently than others or might be running a different version
+of the OpenStack software (some might not even run all the services&hellip;I might
+have Manilla in some but not all regions).  In fact, it could be argued that
+this becomes a virtual certainly in massive edge cases with a large number of
+edges that may temporarily drop off the map.  Resolving differences is
+something that needs to be addressed, and again there are some existing tools
+like <a href="https://git.openstack.org/cgit/openstack/oaktree/tree/README.rst">Oaktree</a>
+and <a href="https://docs.openstack.org/shade/latest/">Shade</a> that might be useful for
+doing so.</li>
+<li>One could also imagine <em>completely</em> different ways to solve these problems.
+This architecture isn&rsquo;t meant to be a final end-all-be-all for all
+users and use cases&ndash;rather, it was meant as something concrete that could be
+used for discussion to flush out what problems exist, could be solved, and
+need more consideration.</li>
+</ul>
+
+<p>If any of this sounded interesting to you, feel free to join the next
+<a href="http://eavesdrop.openstack.org/#Fog_Edge_Massively_Distributed_Clouds_Meeting">FEMDC Meeting</a>
+and/or join the
+ <a href="http://lists.openstack.org/cgi-bin/mailman/listinfo/edge-computing">edge-computing@lists.openstack.org mailing list</a>.</p>
+
+	
+			
+		    	<div class="social-sharing">
+	<a class="share-button-facebook" onClick="return popupShare(this.href);" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fmarkvoelker.github.io%2fblog%2fdublin-ptg-edge-sessions%2f" target="_blank"><i class="fa fa-facebook"><span>Like</span></i></a>
+	<a class="share-button-google-plus" onClick="return popupShare(this.href);" href="https://plus.google.com/share?url=http%3a%2f%2fmarkvoelker.github.io%2fblog%2fdublin-ptg-edge-sessions%2f" target="_blank"><i class="fa fa-google-plus"><span>Google +1</span></i></a>
+	<a class="share-button-linkedin" onClick="return popupShare(this.href);" href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fmarkvoelker.github.io%2fblog%2fdublin-ptg-edge-sessions%2f&title=Dublin%20PTG%202018%3a%20The%20Edge%20Sessions&summary=I%20recently%20got%20snowed%20in%20at%20a%20hotel%20in%20Dublin%20with%20a%20couple%20hundred%20people%20I%20consider%20friends%2c%20a%20well-stocked%20bar%2frestaurant%2c%20a%20fantastic%20event%20staff%2c%20and%20a%20lot%20of%20energy.%0aI%20know%26hellip%3bpoor%20me%2c%20right%3f%20%3d%29%0aBefore%20Storm%20Emma%20and%20the%20Beast%20from%20the%20East%20settled%20in%20on%20the%20OpenStack%20Project%20Team%20Gathering%20and%20forced%20the%20Croke%20Park%20Stadium%20to%20close%20%28thereby%20giving%20birth%20to%20the%20hashtag%20%26ldquo%3bsnowpenstack%26rdquo%3b%29%2c%20we%20got%20a%20solid%20start%20to%20the%20week.}&source=Technology%20is%20Fun%20Because%20It%27s%20Always%20Changing" target="_blank"><i class="fa fa-linkedin"><span>Share on LinkedIn</span></i></a>
+	<a class="share-button-twitter" onClick="return popupShare(this.href);" href="http://twitter.com/share?text=Dublin%20PTG%202018%3a%20The%20Edge%20Sessions&url=http%3a%2f%2fmarkvoelker.github.io%2fblog%2fdublin-ptg-edge-sessions%2f" target="_blank"><i class="fa fa-twitter"><span>Tweet</span></i></a>	
+</div>
+		    
+
+			
+				<div class="tags-list">
+					<span class="dark-red">Tags</span><span class="decorative-marker">//</span>
+					
+	                <a class="post-tag post-tag-edge" href="http://markvoelker.github.io/blog/tags/edge">edge</a>,
+	                
+	                <a class="post-tag post-tag-openstack" href="http://markvoelker.github.io/blog/tags/openstack">openstack</a>,
+	                
+	                <a class="post-tag post-tag-femdc" href="http://markvoelker.github.io/blog/tags/femdc">femdc</a>,
+	                
+	                <a class="post-tag post-tag-ptg" href="http://markvoelker.github.io/blog/tags/ptg">ptg</a>,
+	                
+				</div>
+			
+
+			
+				<div class="paging">
+					<span class="paging-label">More Reading</span>
+					
+
+					
+					<div class="paging-older">
+						<span class="dark-red">Older</span><span class="decorative-marker">//</span>
+			            <a class="paging-link" href="http://markvoelker.github.io/blog/defcore-for-devs/">DefCore: What OpenStack Devs Need to Know</a>
+		            </div>
+		            
+	            </div>
+            
+          </section>
+          
+          	
+          
+        
+      <div class="footer">
+	<hr class="thin" />
+	<div class="pure-menu pure-menu-horizontal pure-menu-open">
+		<ul class="footer-menu">
+		
+			<li><a href="http://markvoelker.github.io/blog/posts">Blog</a></li>
+		
+			<li><a href="http://markvoelker.github.io/blog/index.xml">RSS</a></li>
+		
+		</ul>
+	</div>
+
+	<p>&copy; 2018. <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved.</a></p>
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-68171097-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+</div>
+
+    </div>
+  </div>
+	
+
+	
+		<script type="text/javascript">
+			function popupShare(url) {
+				window.open(url, '_blank', 'scrollbars,resizable,height=525,width=600');
+				return false;
+			}
+		</script>
+	
+
+  
+</body>
+</html>
