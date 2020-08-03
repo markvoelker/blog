@@ -1,48 +1,31 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on Technology is Fun Because It&#39;s Always Changing</title>
-    <link>http://markvoelker.github.io/blog/categories/</link>
-    <description>Recent content in Categories on Technology is Fun Because It&#39;s Always Changing</description>
+    <title>Categories on Future Relics</title>
+    <link>https://markvoelker.github.io/blog/categories/</link>
+    <description>Recent content in Categories on Future Relics</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Wed, 06 Apr 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://markvoelker.github.io/blog/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://markvoelker.github.io/blog/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Defcore</title>
-      <link>http://markvoelker.github.io/blog/categories/defcore/</link>
+      <title>DefCore</title>
+      <link>https://markvoelker.github.io/blog/categories/defcore/</link>
       <pubDate>Wed, 06 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://markvoelker.github.io/blog/categories/defcore/</guid>
+      <guid>https://markvoelker.github.io/blog/categories/defcore/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Edge</title>
-      <link>http://markvoelker.github.io/blog/categories/edge/</link>
-      <pubDate>Thu, 08 Mar 2018 00:00:00 +0000</pubDate>
+      <title>OpenStack</title>
+      <link>https://markvoelker.github.io/blog/categories/openstack/</link>
+      <pubDate>Wed, 06 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://markvoelker.github.io/blog/categories/edge/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Femdc</title>
-      <link>http://markvoelker.github.io/blog/categories/femdc/</link>
-      <pubDate>Thu, 08 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>http://markvoelker.github.io/blog/categories/femdc/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Openstack</title>
-      <link>http://markvoelker.github.io/blog/categories/openstack/</link>
-      <pubDate>Thu, 08 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>http://markvoelker.github.io/blog/categories/openstack/</guid>
+      <guid>https://markvoelker.github.io/blog/categories/openstack/</guid>
       <description></description>
     </item>
     

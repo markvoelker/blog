@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Defcore on Technology is Fun Because It&#39;s Always Changing</title>
-    <link>http://markvoelker.github.io/blog/tags/defcore/</link>
-    <description>Recent content in Defcore on Technology is Fun Because It&#39;s Always Changing</description>
+    <title>defcore on Future Relics</title>
+    <link>https://markvoelker.github.io/blog/tags/defcore/</link>
+    <description>Recent content in defcore on Future Relics</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 06 Apr 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://markvoelker.github.io/blog/tags/defcore/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://markvoelker.github.io/blog/tags/defcore/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>DefCore: What OpenStack Devs Need to Know</title>
-      <link>http://markvoelker.github.io/blog/defcore-for-devs/</link>
+      <link>https://markvoelker.github.io/blog/defcore-for-devs/</link>
       <pubDate>Wed, 06 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://markvoelker.github.io/blog/defcore-for-devs/</guid>
+      <guid>https://markvoelker.github.io/blog/defcore-for-devs/</guid>
       <description>As DefCore has become more established over the past year or so, I&amp;rsquo;ve started getting more questions from project developers and PTL&amp;rsquo;s. In most cases, they&amp;rsquo;re interested to know whether things they&amp;rsquo;re thinking about doing in their projects are &amp;ldquo;ok from a DefCore perspective&amp;rdquo; or would be &amp;ldquo;ok from an interoperability perspective&amp;rdquo;. In some cases they&amp;rsquo;re basically just giving a quick (and appreciated!) heads-up and sometimes they&amp;rsquo;re generating terrific discussions.</description>
     </item>
     
