@@ -1,4 +1,4 @@
-baseurl = "http://markvoelker.github.io/blog"
+baseurl = "https://markvoelker.github.io/blog"
 languageCode = "en-us"
 title = "Future Relics"
 theme = "hyde-hyde"

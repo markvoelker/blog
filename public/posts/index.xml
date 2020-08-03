@@ -2,39 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Future Relics</title>
-    <link>http://markvoelker.github.io/blog/posts/</link>
+    <link>https://markvoelker.github.io/blog/posts/</link>
     <description>Recent content in Posts on Future Relics</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 06 Apr 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://markvoelker.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://markvoelker.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>DefCore: What OpenStack Devs Need to Know</title>
-      <link>http://markvoelker.github.io/blog/defcore-for-devs/</link>
+      <link>https://markvoelker.github.io/blog/defcore-for-devs/</link>
       <pubDate>Wed, 06 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://markvoelker.github.io/blog/defcore-for-devs/</guid>
+      <guid>https://markvoelker.github.io/blog/defcore-for-devs/</guid>
       <description>As DefCore has become more established over the past year or so, I&amp;rsquo;ve started getting more questions from project developers and PTL&amp;rsquo;s. In most cases, they&amp;rsquo;re interested to know whether things they&amp;rsquo;re thinking about doing in their projects are &amp;ldquo;ok from a DefCore perspective&amp;rdquo; or would be &amp;ldquo;ok from an interoperability perspective&amp;rdquo;. In some cases they&amp;rsquo;re basically just giving a quick (and appreciated!) heads-up and sometimes they&amp;rsquo;re generating terrific discussions.</description>
     </item>
     
     <item>
       <title>DefCore Misconceptions Part 2: Debunking Advisory Status</title>
-      <link>http://markvoelker.github.io/blog/defcore-misconceptions-2/</link>
+      <link>https://markvoelker.github.io/blog/defcore-misconceptions-2/</link>
       <pubDate>Mon, 28 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://markvoelker.github.io/blog/defcore-misconceptions-2/</guid>
+      <guid>https://markvoelker.github.io/blog/defcore-misconceptions-2/</guid>
       <description>DefCore isn&amp;rsquo;t a new creature in the OpenStack community: it&amp;rsquo;s been in discussion since at least 2013. However it was only earlier in 2015 that adherence to DefCore Guidelines became a requirement for products that want to use the OpenStack name and OpenStack Powered logo. As a result, a lot more people are now interested in DefCore than in the past. As we&amp;rsquo;ve started receiving a lot more feedback about DefCore, it&amp;rsquo;s become apparent that there are a few misconceptions out there from folks who are new to DefCore.</description>
     </item>
     
     <item>
       <title>DefCore Misconceptions Part 1: Leading vs Trailing Indicators</title>
-      <link>http://markvoelker.github.io/blog/defcore-misconceptions-1/</link>
+      <link>https://markvoelker.github.io/blog/defcore-misconceptions-1/</link>
       <pubDate>Fri, 25 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://markvoelker.github.io/blog/defcore-misconceptions-1/</guid>
+      <guid>https://markvoelker.github.io/blog/defcore-misconceptions-1/</guid>
       <description>DefCore isn&amp;rsquo;t a new creature in the OpenStack community: it&amp;rsquo;s been in discussion since at least 2013. However it was only earlier in 2015 that adherence to DefCore Guidelines became a requirement for products that want to use the OpenStack name and OpenStack Powered logo. As a result, a lot more people are now interested in DefCore than in the past. As we&amp;rsquo;ve started receiving a lot more feedback about DefCore, it&amp;rsquo;s become apparent that there are a few misconceptions out there from folks who are new to DefCore.</description>
     </item>
     
