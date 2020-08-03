@@ -1,7 +1,7 @@
 baseurl = "http://markvoelker.github.io/blog"
 languageCode = "en-us"
-title = "Technology is Fun Because It's Always Changing"
-theme = "redlounge"
+title = "Future Relics"
+theme = "hyde-hyde"
 Paginate = 5
 contentdir = "content"
 layoutdir = "layouts"
@@ -19,6 +19,11 @@ canonifyurls = true
   hideSidebarIconText = true
   sidebartitle = "Future Relics"
   sidebartagline = "Everything we work on goes obsolete someday--and that's what makes it so much fun."
+  description = "Everything we work on goes obsolete someday--and that's what makes it so much fun."
+
+[params.social]
+  twitter = "marktvoelker"
+  linkedin = "markvoelker"
 
 [[menu.main]]
   name = "RSS"
